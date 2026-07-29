@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="../TT_Favicon.svg">
+<link rel="apple-touch-icon" href="../TT_Favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Salary Benchmark Tool 2025 | The Tutorment</title>
+<meta name="description" content="Find your market salary across India, UK, USA, Canada, Australia, UAE, Germany, and Singapore. Role-specific benchmarks, skill gap analysis, and global comparisons. Free tool.">
+<link rel="preload" href="../shared.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../shared.css"></noscript>
+  <link rel="preload" href="../css/nav.v3.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../css/nav.v3.css"></noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+/* ─── Design tokens ─── */
+:root {
+  --navy: #0A2E73;
+  --navy-deep: #061a4a;
+  --teal: #00B3A4;
+  --teal-light: #e6f9f7;
+  --amber: #f59e0b;
+  --red: #ef4444;
+  --green: #22c55e;
+  --surface: #f8fafc;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --font-display: 'Manrope', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-body); background: var(--surface); color: var(--text); }
+
+/* ─── Hero ─── */
+.sc-hero {
+  background: linear-gradient(150deg, #040c1f 0%, #0a1c4d 45%, var(--navy) 80%);
+  padding: 56px 24px 52px;
+  text-align: center;
+}
+.sc-hero .eyebrow {
+  font-size: 10px; font-weight: 800; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 14px;
+}
+.sc-hero h1 {
+  font-family: var(--font-display); font-size: clamp(28px, 5vw, 44px);
+  font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 14px;
+}
+.sc-hero p {
+  font-size: 15px; color: rgba(255,255,255,.65); max-width: 560px;
+  margin: 0 auto 28px; line-height: 1.7;
+}
+.sc-hero-stats {
+  display: flex; justify-content: center; gap: 24px; flex-wrap: wrap;
+}
+.sc-stat {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px; padding: 10px 18px; text-align: center;
+}
+.sc-stat-n { font-size: 20px; font-weight: 800; color: #fff; line-height: 1; }
+.sc-stat-l { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 3px; }
+
+/* ─── Layout ─── */
+.sc-body { max-width: 1120px; margin: 0 auto; padding: 40px 24px 80px; }
+.sc-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ─── Input panel ─── */
+.sc-form {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 2px 12px rgba(10,46,115,.06);
+}
+.sc-form-title {
+  font-size: 16px; font-weight: 800; color: var(--navy);
+  margin-bottom: 22px; padding-bottom: 14px;
+  border-bottom: 2px solid var(--teal-light);
+}
+.fi { margin-bottom: 18px; }
+.fi label {
+  display: block; font-size: 12px; font-weight: 700;
+  color: var(--muted); text-transform: uppercase; letter-spacing: .06em;
+  margin-bottom: 7px;
+}
+.fi input, .fi select {
+  width: 100%; font-size: 14px; font-family: inherit;
+  padding: 11px 14px; border: 1.5px solid var(--border);
+  border-radius: 8px; outline: none; background: var(--card);
+  color: var(--text); transition: border-color .15s, box-shadow .15s;
+  appearance: none;
+}
+.fi input:focus, .fi select:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(10,46,115,.08);
+}
+.fi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fi-hint {
+  font-size: 11.5px; color: var(--muted); margin-top: 5px; line-height: 1.5;
+}
+.sc-currency-badge {
+  display: inline-block; font-size: 12px; font-weight: 700;
+  background: var(--navy); color: #fff; padding: 3px 9px;
+  border-radius: 4px; margin-left: 8px; vertical-align: middle;
+}
+.sc-divider {
+  height: 1px; background: var(--border); margin: 20px 0;
+}
+
+/* ─── Results panel ─── */
+.sc-results {
+  position: sticky; top: 88px;
+}
+.sc-empty {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; padding: 48px 32px; text-align: center;
+  color: var(--muted);
+}
+.sc-empty-icon {
+  width: 56px; height: 56px; background: var(--teal-light);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 16px;
+}
+.sc-empty-icon svg { width: 28px; height: 28px; stroke: var(--teal); }
+.sc-empty h3 { font-size: 16px; color: var(--navy); margin-bottom: 8px; }
+.sc-empty p { font-size: 13.5px; line-height: 1.65; }
+
+/* ─── Result cards ─── */
+.sc-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(10,46,115,.05);
+}
+.sc-card-head {
+  background: var(--navy); padding: 16px 22px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sc-card-head-label {
+  font-size: 10px; font-weight: 800; letter-spacing: .12em;
+  text-transform: uppercase; color: rgba(255,255,255,.55);
+}
+.sc-card-head-title { font-size: 14px; font-weight: 700; color: #fff; margin-top: 2px; }
+.sc-card-body { padding: 20px 22px; }
+
+/* ─── Percentile bar ─── */
+.sc-pct-wrap { margin: 18px 0; }
+.sc-pct-label {
+  display: flex; justify-content: space-between;
+  font-size: 12px; color: var(--muted); margin-bottom: 7px;
+}
+.sc-pct-track {
+  height: 10px; background: #f1f5f9; border-radius: 5px;
+  position: relative; overflow: visible;
+}
+.sc-pct-fill {
+  height: 10px; border-radius: 5px; transition: width .7s ease;
+  position: relative;
+}
+.sc-pct-marker {
+  position: absolute; top: -4px; width: 18px; height: 18px;
+  background: var(--navy); border: 3px solid #fff;
+  border-radius: 50%; transform: translateX(-50%);
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  transition: left .7s ease;
+}
+.sc-pct-segments {
+  display: flex; gap: 6px; margin-top: 10px;
+}
+.sc-pct-seg {
+  flex: 1; font-size: 11px; text-align: center; color: var(--muted);
+  padding: 5px 4px; background: var(--surface); border-radius: 4px;
+  border: 1px solid var(--border); line-height: 1.3;
+}
+.sc-pct-seg.active {
+  background: var(--navy); color: #fff; border-color: var(--navy);
+  font-weight: 700;
+}
+
+/* ─── Salary range display ─── */
+.sc-range-grid {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px; margin-bottom: 16px;
+}
+.sc-range-item { text-align: center; padding: 12px 8px; border-radius: 8px; }
+.sc-range-item.low { background: #fef9ec; }
+.sc-range-item.mid { background: var(--teal-light); }
+.sc-range-item.high { background: #eff6ff; }
+.sc-range-n { font-size: 18px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.sc-range-item.low .sc-range-n { color: #b45309; }
+.sc-range-item.mid .sc-range-n { color: var(--teal); }
+.sc-range-item.high .sc-range-n { color: var(--navy); }
+.sc-range-l { font-size: 11px; color: var(--muted); }
+
+/* ─── Gap callout ─── */
+.sc-gap-box {
+  border-radius: 8px; padding: 14px 16px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.sc-gap-box.positive { background: #fef2f2; border: 1px solid #fecaca; }
+.sc-gap-box.neutral  { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.sc-gap-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 16px; font-weight: 800;
+}
+.sc-gap-box.positive .sc-gap-icon { background: #fee2e2; color: var(--red); }
+.sc-gap-box.neutral  .sc-gap-icon { background: #dcfce7; color: #16a34a; }
+.sc-gap-text { font-size: 13px; color: var(--text); line-height: 1.6; }
+.sc-gap-text strong { font-weight: 700; }
+
+/* ─── Global comparison ─── */
+.sc-global-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 0; border-bottom: 1px solid #f8fafc;
+}
+.sc-global-flag {
+  width: 26px; height: 18px; border-radius: 3px;
+  background: var(--surface); font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border); flex-shrink: 0;
+}
+.sc-global-country { font-size: 13px; font-weight: 600; flex: 1; }
+.sc-global-range { font-size: 13px; color: var(--navy); font-weight: 700; }
+.sc-global-bar-wrap { width: 80px; height: 6px; background: #f1f5f9; border-radius: 3px; overflow: hidden; flex-shrink: 0; }
+.sc-global-bar { height: 6px; background: var(--teal); border-radius: 3px; }
+
+/* ─── Skills ─── */
+.sc-skill-grid { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 2px; }
+.sc-skill {
+  font-size: 12px; font-weight: 600; background: var(--surface);
+  border: 1px solid var(--border); color: var(--navy);
+  padding: 5px 12px; border-radius: 20px; line-height: 1;
+}
+.sc-skill.priority {
+  background: var(--navy); color: #fff; border-color: var(--navy);
+}
+
+/* ─── Timeline ─── */
+.sc-timeline { margin-top: 4px; }
+.sc-timeline-row {
+  display: flex; gap: 12px; padding: 10px 0;
+  border-bottom: 1px solid var(--surface);
+}
+.sc-timeline-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--teal); flex-shrink: 0; margin-top: 5px;
+}
+.sc-timeline-content { flex: 1; }
+.sc-timeline-label {
+  font-size: 12px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.sc-timeline-text { font-size: 13px; color: var(--text); line-height: 1.6; margin-top: 2px; }
+
+/* ─── CTA ─── */
+.sc-cta {
+  background: linear-gradient(135deg, var(--navy), #1565c0);
+  border-radius: 10px; padding: 20px; margin-top: 4px;
+  text-align: center;
+}
+.sc-cta p { font-size: 13px; color: rgba(255,255,255,.75); margin-bottom: 12px; line-height: 1.6; }
+.sc-cta a {
+  display: inline-block; background: var(--teal); color: #fff;
+  font-size: 14px; font-weight: 700; padding: 11px 24px;
+  border-radius: 7px; text-decoration: none;
+}
+
+/* ─── Disclaimer ─── */
+.sc-disclaimer {
+  font-size: 11px; color: var(--muted); margin-top: 16px;
+  line-height: 1.6; padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 860px) {
+  .sc-grid { grid-template-columns: 1fr; }
+  .sc-results { position: static; }
+}
+@media (max-width: 480px) {
+  .fi-row { grid-template-columns: 1fr; }
+  .sc-range-grid { grid-template-columns: 1fr; }
+}
+</style>
+  <link rel="canonical" href="https://www.thetutorment.com/pages/salary-calculator.html">
+</head>
+<body>
+<div id="main-nav" data-root="../"></div>
+
+<!-- Hero -->
+<div class="sc-hero">
+  <div class="eyebrow">Free Tool · Global Edition</div>
+  <h1>What should you<br>actually be earning?</h1>
+  <p>Real salary benchmarks across 8 countries, 35+ roles, and 5 experience levels. Enter your details to see where you stand, what the market pays at the next level, and exactly what skills close the gap.</p>
+  <div class="sc-hero-stats">
+    <div class="sc-stat"><div class="sc-stat-n">8</div><div class="sc-stat-l">Countries</div></div>
+    <div class="sc-stat"><div class="sc-stat-n">35+</div><div class="sc-stat-l">Roles covered</div></div>
+    <div class="sc-stat"><div class="sc-stat-n">2025</div><div class="sc-stat-l">Market data</div></div>
+    <div class="sc-stat"><div class="sc-stat-n">PPP</div><div class="sc-stat-l">Adjusted globally</div></div>
+  </div>
+</div>
+
+<!-- Body -->
+<div class="sc-body">
+  <div class="sc-grid">
+
+    <!-- Input form -->
+    <div class="sc-form">
+      <div class="sc-form-title">Your details</div>
+
+      <div class="fi">
+        <label for="sc-name">Your first name (optional)</label>
+        <input id="sc-name" type="text" placeholder="e.g. Priya" oninput="calculate()">
+        <div class="fi-hint">We use this to personalise your results.</div>
+      </div>
+
+      <div class="sc-divider"></div>
+
+      <div class="fi">
+        <label for="sc-country">Country you work in <span style="color:#ef4444">*</span></label>
+        <select id="sc-country" onchange="onCountryChange()">
+          <option value="">Select your country</option>
+          <optgroup label="South Asia">
+            <option value="india">India</option>
+          </optgroup>
+          <optgroup label="Europe">
+            <option value="uk">United Kingdom</option>
+            <option value="germany">Germany</option>
+          </optgroup>
+          <optgroup label="North America">
+            <option value="usa">United States</option>
+            <option value="canada">Canada</option>
+          </optgroup>
+          <optgroup label="Asia Pacific">
+            <option value="australia">Australia</option>
+            <option value="singapore">Singapore</option>
+          </optgroup>
+          <optgroup label="Middle East">
+            <option value="uae">UAE</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <div class="fi-row">
+        <div class="fi">
+          <label for="sc-sector">Sector <span style="color:#ef4444">*</span></label>
+          <select id="sc-sector" onchange="onSectorChange()">
+            <option value="">Select sector</option>
+            <option value="tech">Technology</option>
+            <option value="finance">Finance</option>
+            <option value="marketing">Marketing</option>
+            <option value="management">Management & Ops</option>
+            <option value="health">Healthcare</option>
+            <option value="engineering">Engineering</option>
+            <option value="design">Design & Creative</option>
+          </select>
+        </div>
+        <div class="fi">
+          <label for="sc-role">Role <span style="color:#ef4444">*</span></label>
+          <select id="sc-role" onchange="calculate()">
+            <option value="">Select role</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fi-row">
+        <div class="fi">
+          <label for="sc-exp">Experience</label>
+          <select id="sc-exp" onchange="calculate()">
+            <option value="0-1">0 – 1 year</option>
+            <option value="1-3">1 – 3 years</option>
+            <option value="3-5" selected>3 – 5 years</option>
+            <option value="5-8">5 – 8 years</option>
+            <option value="8-12">8 – 12 years</option>
+            <option value="12+">12+ years</option>
+          </select>
+        </div>
+        <div class="fi">
+          <label for="sc-qual">Education</label>
+          <select id="sc-qual" onchange="calculate()">
+            <option value="diploma">Diploma / Below degree</option>
+            <option value="bachelors" selected>Bachelor's degree</option>
+            <option value="masters">Master's degree</option>
+            <option value="phd">PhD</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="fi">
+        <label for="sc-salary">Your current salary
+          <span class="sc-currency-badge" id="sc-currency-badge">—</span>
+        </label>
+        <input id="sc-salary" type="number" placeholder="Enter your current salary" min="0" oninput="calculate()">
+        <div class="fi-hint" id="sc-salary-hint">Select your country to see the currency and typical range.</div>
+      </div>
+
+      <div class="fi">
+        <label for="sc-company">Company type</label>
+        <select id="sc-company" onchange="calculate()">
+          <optgroup label="Technology Companies">
+            <option value="faang">FAANG / Big Tech (Google, Meta, Amazon, Microsoft, Apple)</option>
+            <option value="unicorn">Unicorn / Funded startup (Flipkart, Razorpay, CRED, Swiggy etc.)</option>
+            <option value="series-b" selected>Series B / Growth-stage startup</option>
+            <option value="series-a">Early-stage startup (Series A and below)</option>
+            <option value="product-co">Product company (non-startup, non-FAANG)</option>
+          </optgroup>
+          <optgroup label="Traditional Business">
+            <option value="mnc">Multinational corporation (MNC)</option>
+            <option value="conglomerate">Large Indian conglomerate (Tata, Reliance, Infosys, TCS)</option>
+            <option value="sme">SME / Mid-size company (&lt;500 employees)</option>
+          </optgroup>
+          <optgroup label="Services & Consulting">
+            <option value="big4">Big 4 consulting (Deloitte, PwC, EY, KPMG)</option>
+            <option value="mbb">MBB consulting (McKinsey, BCG, Bain)</option>
+            <option value="boutique-consulting">Boutique / niche consulting firm</option>
+            <option value="it-services">IT services firm (Wipro, Infosys, HCL, Cognizant)</option>
+          </optgroup>
+          <optgroup label="Public Sector">
+            <option value="psu">PSU / Government enterprise (NTPC, BHEL, ONGC)</option>
+            <option value="govt">Government / Civil service</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option value="ngo">NGO / Social sector / Non-profit</option>
+            <option value="freelance">Freelance / Independent consultant</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+
+    <!-- Results panel -->
+    <div class="sc-results">
+
+      <!-- Empty state -->
+      <div class="sc-empty" id="sc-empty">
+        <div class="sc-empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+          </svg>
+        </div>
+        <h2>Select your country and role</h3>
+        <p>Your personalised salary benchmark and gap analysis will appear here instantly.</p>
+      </div>
+
+      <!-- Results (hidden until data entered) -->
+      <div id="sc-results-wrap" style="display:none">
+
+        <!-- Headline card -->
+        <div class="sc-card">
+          <div class="sc-card-head">
+            <div>
+              <div class="sc-card-head-label">Market benchmark</div>
+              <div class="sc-card-head-title" id="sc-role-title">—</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px">Your percentile</div>
+              <div style="font-size:22px;font-weight:800;color:#fff" id="sc-percentile-display">—</div>
+            </div>
+          </div>
+          <div class="sc-card-body">
+            <!-- Salary ranges -->
+            <div class="sc-range-grid">
+              <div class="sc-range-item low">
+                <div class="sc-range-n" id="sc-range-p25">—</div>
+                <div class="sc-range-l">Entry (25th)</div>
+              </div>
+              <div class="sc-range-item mid">
+                <div class="sc-range-n" id="sc-range-p50">—</div>
+                <div class="sc-range-l">Median (50th)</div>
+              </div>
+              <div class="sc-range-item high">
+                <div class="sc-range-n" id="sc-range-p75">—</div>
+                <div class="sc-range-l">Top quartile (75th)</div>
+              </div>
+            </div>
+
+            <!-- Percentile bar -->
+            <div class="sc-pct-wrap">
+              <div class="sc-pct-label">
+                <span>Entry level</span>
+                <span id="sc-pct-you">You are here</span>
+                <span>Top earner</span>
+              </div>
+              <div class="sc-pct-track">
+                <div class="sc-pct-fill" id="sc-pct-fill" style="width:0%;background:linear-gradient(90deg,#00B3A4,#0A2E73)"></div>
+                <div class="sc-pct-marker" id="sc-pct-marker" style="left:0%"></div>
+              </div>
+              <div class="sc-pct-segments" id="sc-pct-segs">
+                <div class="sc-pct-seg">Below 25th<br><span id="sc-seg-0">—</span></div>
+                <div class="sc-pct-seg">25–50th<br><span id="sc-seg-1">—</span></div>
+                <div class="sc-pct-seg">50–75th<br><span id="sc-seg-2">—</span></div>
+                <div class="sc-pct-seg">Top 25%<br><span id="sc-seg-3">—</span></div>
+              </div>
+            </div>
+
+            <!-- Gap callout -->
+            <div class="sc-gap-box" id="sc-gap-box">
+              <div class="sc-gap-icon" id="sc-gap-icon">↑</div>
+              <div class="sc-gap-text" id="sc-gap-text">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Global comparison card -->
+        <div class="sc-card">
+          <div class="sc-card-head">
+            <div>
+              <div class="sc-card-head-label">Global comparison</div>
+              <div class="sc-card-head-title">What this role pays worldwide</div>
+            </div>
+          </div>
+          <div class="sc-card-body">
+            <div id="sc-global-rows"></div>
+            <div style="font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.6">Amounts shown in local currency. USD PPP equivalent shown where available. Based on 2025 market surveys including Glassdoor, LinkedIn Salary, Levels.fyi, and local industry reports.</div>
+          </div>
+        </div>
+
+        <!-- Skills gap card -->
+        <div class="sc-card">
+          <div class="sc-card-head">
+            <div>
+              <div class="sc-card-head-label">Gap analysis</div>
+              <div class="sc-card-head-title">Skills that move you to the next level</div>
+            </div>
+          </div>
+          <div class="sc-card-body">
+            <div style="font-size:13px;color:var(--muted);margin-bottom:12px" id="sc-skills-context">—</div>
+            <div id="sc-skills"></div>
+          </div>
+        </div>
+
+        <!-- Timeline card -->
+        <div class="sc-card">
+          <div class="sc-card-head">
+            <div>
+              <div class="sc-card-head-label">Realistic roadmap</div>
+              <div class="sc-card-head-title" id="sc-timeline-title">—</div>
+            </div>
+          </div>
+          <div class="sc-card-body">
+            <div class="sc-timeline" id="sc-timeline"></div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="sc-cta">
+          <p id="sc-cta-text">Your benchmark is ready. Book a free session to turn this into a specific action plan with a counsellor who has done this before.</p>
+          <a href="../pages/contact.html">Book a free salary assessment session</a>
+        </div>
+
+        <!-- Methodology note — always visible at top of results -->
+        <div id="sc-methodology" style="display:none;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px 18px;margin-bottom:16px;font-size:12px;color:#64748b;line-height:1.65">
+          <strong style="color:#0f172a;display:block;margin-bottom:4px">How these benchmarks work</strong>
+          Salary ranges show the 25th, 50th, and 75th percentile for your role, country, experience level, education, and company type. Adjusted using Glassdoor, LinkedIn Salary, Naukri, SEEK, Levels.fyi, and local industry survey data (2024–2025). PPP conversions use approximate 2025 exchange rates. These are market benchmarks — not salary guarantees or job offers. Individual results vary based on company size, interview performance, and specific skill stack. Last updated: June 2025.
+        </div>
+        <div class="sc-disclaimer" id="sc-disclaimer">—</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="site-footer" data-root="../"></div>
+<script src="../nav.v3.js" defer></script>
+<script src="../footer.v3.js" defer></script>
+<script>
+/* ═══════════════════════════════════
+   CURRENCY CONFIG
+═══════════════════════════════════ */
+var CURRENCIES = {
+  india:     { code:'INR', sym:'₹', unit:'LPA', mult:100000, placeholder:'e.g. 8 (for ₹8 LPA)', hint:'Enter in Lakhs Per Annum (LPA). ₹1 LPA = ₹100,000/year.' },
+  uk:        { code:'GBP', sym:'£', unit:'K/yr', mult:1000,  placeholder:'e.g. 45 (for £45,000)', hint:'Enter in thousands. £45 = £45,000 per year.' },
+  usa:       { code:'USD', sym:'$', unit:'K/yr', mult:1000,  placeholder:'e.g. 120 (for $120,000)', hint:'Enter in thousands. $120 = $120,000 per year.' },
+  canada:    { code:'CAD', sym:'C$', unit:'K/yr',mult:1000,  placeholder:'e.g. 90 (for CAD 90,000)', hint:'Enter in thousands. 90 = CAD 90,000 per year.' },
+  australia: { code:'AUD', sym:'A$', unit:'K/yr',mult:1000,  placeholder:'e.g. 95 (for AUD 95,000)', hint:'Enter in thousands. 95 = AUD 95,000 per year.' },
+  germany:   { code:'EUR', sym:'€', unit:'K/yr', mult:1000,  placeholder:'e.g. 65 (for €65,000)', hint:'Enter in thousands. 65 = €65,000 per year.' },
+  uae:       { code:'AED', sym:'AED', unit:'K/yr',mult:1000, placeholder:'e.g. 200 (for AED 200,000)', hint:'Enter in thousands. 200 = AED 200,000 per year.' },
+  singapore: { code:'SGD', sym:'S$', unit:'K/yr',mult:1000,  placeholder:'e.g. 90 (for SGD 90,000)', hint:'Enter in thousands. 90 = SGD 90,000 per year.' },
+};
+
+/* PPP multipliers relative to USD (approximate 2025) */
+var PPP_TO_USD = {
+  india: function(v){ return Math.round(v * 100000 / 83 / 1000); }, // LPA → USD K
+  uk: function(v){ return Math.round(v * 1.27); },
+  usa: function(v){ return v; },
+  canada: function(v){ return Math.round(v * 0.74); },
+  australia: function(v){ return Math.round(v * 0.65); },
+  germany: function(v){ return Math.round(v * 1.09); },
+  uae: function(v){ return Math.round(v * 0.272); },
+  singapore: function(v){ return Math.round(v * 0.74); },
+};
+
+/* ═══════════════════════════════════
+   ROLE DATA — salary bands by country
+   All values in local currency units
+   (LPA for India, thousands for others)
+═══════════════════════════════════ */
+var ROLES = {
+  tech: {
+    'swe-junior':     { label:'Software Engineer (Junior, 0–2 yrs)',    bands:{ india:{p25:6,p50:10,p75:18,p90:35},  uk:{p25:28,p50:38,p75:52,p90:75},    usa:{p25:75,p50:105,p75:135,p90:180},  canada:{p25:58,p50:80,p75:105,p90:140},  australia:{p25:65,p50:82,p75:105,p90:140},  germany:{p25:42,p50:55,p75:72,p90:90},   uae:{p25:90,p50:130,p75:180,p90:250},   singapore:{p25:55,p50:75,p75:100,p90:135} }, skills:['Data structures and algorithms','Git and CI/CD basics','One cloud platform fundamentals','REST APIs and HTTP'], priority:['Data structures and algorithms at interview depth — arrays, trees, graphs, dynamic programming. Ability to solve medium-complexity problems under time pressure. This gates all product company technical interviews.','End-to-end project deployment — ability to build, test, deploy, and monitor a production application independently'], nextTitle:'Mid-level Software Engineer', timeline:['0–6 months: Master DSA to LeetCode Medium level. This alone unlocks a 40–80% salary jump in product companies.','6–12 months: Build and deploy one full-stack project end-to-end. Own the architecture, not just the code.','12–18 months: Contribute to a codebase with 10+ engineers. Code review, system design discussions, and on-call experience.'] },
+    'swe-mid':        { label:'Software Engineer (Mid, 2–5 yrs)',         bands:{ india:{p25:15,p50:24,p75:40,p90:65},  uk:{p25:42,p50:58,p75:78,p90:105},   usa:{p25:110,p50:145,p75:185,p90:240}, canada:{p25:80,p50:105,p75:135,p90:175}, australia:{p25:88,p50:108,p75:135,p90:170}, germany:{p25:55,p50:70,p75:88,p90:110},  uae:{p25:130,p50:175,p75:230,p90:320},  singapore:{p25:75,p50:98,p75:130,p90:170} }, skills:['System design fundamentals','Cloud (AWS/GCP) deployment','Code review and tech leadership basics','Performance profiling'], priority:['System design competency — distributed systems, caching, load balancing, database design at scale','Cloud infrastructure ownership — ability to architect and deploy on AWS/GCP, not just use it'], nextTitle:'Senior Software Engineer', timeline:['0–3 months: Complete system design interview prep (grokking.io or ByteByteGo). Non-negotiable for senior roles.','3–8 months: Lead one project end-to-end — from requirements to production. Take ownership visibly.','8–18 months: AWS SAA certification adds ₹4–8 LPA / £5K+ and opens cloud-native senior roles.'] },
+    'swe-senior':     { label:'Software Engineer (Senior, 5+ yrs)',        bands:{ india:{p25:32,p50:55,p75:90,p90:150}, uk:{p25:65,p50:85,p75:115,p90:155},  usa:{p25:160,p50:210,p75:280,p90:400}, canada:{p25:110,p50:145,p75:190,p90:260}, australia:{p25:115,p50:145,p75:185,p90:240}, germany:{p25:75,p50:95,p75:120,p90:155},  uae:{p25:200,p50:260,p75:340,p90:500},  singapore:{p25:110,p50:148,p75:195,p90:270} }, skills:['Staff-level system design','Engineering management basics','Architecture and tech strategy','Mentoring and code quality culture'], priority:['Cross-team technical leadership — driving architectural decisions that affect multiple teams','Engineering talent development — ability to hire, onboard, and grow engineers, not just mentor them'], nextTitle:'Staff Engineer or Engineering Manager', timeline:['0–6 months: Lead a cross-team technical initiative. Staff engineers are known outside their team.','6–12 months: Publish an internal RFC or architectural decision record that gets adopted. Visibility matters.','12–24 months: Choose track — management (people, org, P&L) or staff IC (deep technical, platform). Both can reach ₹1Cr+/yr.'] },
+    'data-scientist': { label:'Data Scientist',                            bands:{ india:{p25:12,p50:22,p75:40,p90:70},  uk:{p25:42,p50:60,p75:82,p90:115},   usa:{p25:100,p50:140,p75:185,p90:260}, canada:{p25:75,p50:105,p75:140,p90:190}, australia:{p25:85,p50:108,p75:140,p90:185}, germany:{p25:55,p50:72,p75:95,p90:125},  uae:{p25:140,p50:190,p75:260,p90:380},  singapore:{p25:75,p50:105,p75:140,p90:195} }, skills:['Machine learning deployment (MLOps)','Python advanced (pandas, sklearn, PyTorch)','A/B testing and experimentation design','SQL for large-scale data'], priority:['ML model deployment to production — taking a model from notebook to serving live traffic','Experimentation ownership — designing statistically rigorous A/B tests and owning the business recommendation'], nextTitle:'Senior Data Scientist or ML Engineer', timeline:['0–3 months: Deploy one ML model to production. Many DS professionals cannot do this — it is the most valued gap.','3–8 months: Lead an A/B test with statistical rigour from design to recommendation. Own the business outcome.','8–18 months: Specialise in LLMs or computer vision — both command 30–60% salary premiums over generalist DS roles.'] },
+    'product':        { label:'Product Manager',                           bands:{ india:{p25:14,p50:28,p75:55,p90:100}, uk:{p25:48,p50:68,p75:95,p90:135},   usa:{p25:115,p50:158,p75:210,p90:290}, canada:{p25:85,p50:118,p75:158,p90:215}, australia:{p25:98,p50:128,p75:165,p90:220}, germany:{p25:60,p50:80,p75:105,p90:140},  uae:{p25:150,p50:210,p75:285,p90:420},  singapore:{p25:85,p50:120,p75:160,p90:225} }, skills:['Product strategy and multi-year roadmapping','SQL and cohort/funnel analytics','Experiment design and statistical significance','Stakeholder alignment without formal authority','Pricing strategy and monetisation thinking'], priority:['SQL proficiency — ability to self-serve data analysis without engineering dependency','Product strategy ownership — defining what to build AND what not to build, with business justification'], nextTitle:'Senior PM or Group PM', timeline:['0–3 months: Own one full product metric end-to-end — set the goal, measure it, experiment, report the outcome.','3–8 months: Build product strategy ownership — define a 12-month roadmap with business justification, trade-offs documented, and metrics for each bet. Show you can make the case for what NOT to build.','8–18 months: Expand scope to 2–3 PMs or manage a second product area. Group PM / Director requires this evidence.'] },
+    'devops':         { label:'Cloud & DevOps Engineer',                   bands:{ india:{p25:12,p50:22,p75:38,p90:65},  uk:{p25:45,p50:62,p75:85,p90:118},   usa:{p25:110,p50:148,p75:195,p90:270}, canada:{p25:85,p50:112,p75:148,p90:200}, australia:{p25:92,p50:120,p75:155,p90:205}, germany:{p25:58,p50:75,p75:98,p90:130},  uae:{p25:145,p50:195,p75:260,p90:380},  singapore:{p25:80,p50:110,p75:148,p90:205} }, skills:['Kubernetes and container orchestration','Infrastructure as code (Terraform)','Observability — Prometheus, Grafana, OpenTelemetry','Platform engineering and developer experience'], priority:['Kubernetes cluster management and troubleshooting at production scale — hands-on, not just conceptual','Infrastructure as code — writing Terraform or Pulumi that others can maintain and extend'], nextTitle:'Senior DevOps / Platform Engineer', timeline:['0–4 months: Earn CKA — hands-on exam, high demand, adds ₹4–10 LPA immediately.','4–10 months: Build a full Kubernetes-based platform with CI/CD, observability, and autoscaling. Portfolio > cert.','10–18 months: Move toward Platform Engineering — the highest-paying DevOps specialisation in 2025.'] },
+  },
+  finance: {
+    'fin-analyst':    { label:'Financial Analyst',                         bands:{ india:{p25:6,p50:12,p75:22,p90:42},   uk:{p25:32,p50:46,p75:65,p90:95},    usa:{p25:65,p50:90,p75:125,p90:175},  canada:{p25:52,p50:72,p75:100,p90:140},  australia:{p25:60,p50:80,p75:108,p90:150},  germany:{p25:42,p50:58,p75:78,p90:105},  uae:{p25:100,p50:145,p75:205,p90:300},  singapore:{p25:58,p50:82,p75:115,p90:165} }, skills:['Advanced Excel and financial modelling','Valuation — DCF, comparables, LBO basics','Power BI or Tableau for reporting','CFA Level 1'], priority:['Three-statement financial modelling — building integrated P&L, balance sheet, and cash flow models from scratch','Valuation competency — DCF, comparable company analysis, and precedent transaction analysis applied to real cases'], nextTitle:'Senior Analyst or Associate', timeline:['0–6 months: Build 3 financial models from scratch — DCF, comps, merger model. Upload to GitHub or portfolio site.','6–18 months: Pass CFA Level 1. PMI Salary Survey 2023: CFA holders earn 28% more globally.','18–36 months: Move to a bulge bracket, PE firm, or top consulting firm. Company tier matters more than title at this level.'] },
+    'ca':             { label:'Chartered Accountant (CA / CPA)',           bands:{ india:{p25:8,p50:16,p75:30,p90:60},   uk:{p25:38,p50:56,p75:78,p90:115},   usa:{p25:65,p50:92,p75:128,p90:185},  canada:{p25:58,p50:80,p75:112,p90:158},  australia:{p25:65,p50:88,p75:122,p90:170},  germany:{p25:48,p50:65,p75:88,p90:120},  uae:{p25:120,p50:170,p75:240,p90:360},  singapore:{p25:65,p50:92,p75:130,p90:185} }, skills:['IFRS and local GAAP convergence','Corporate tax strategy','M&A due diligence','Big 4 or equivalent advisory experience'], priority:['Advisory transition — moving from compliance and audit to M&A, deals, or FP&A work, which pays 40-80% more','International accounting qualification (ACCA or US CPA) for UK, Middle East, or North American markets'], nextTitle:'Finance Manager or Senior CA', timeline:['0–6 months: Move from compliance to advisory work. The salary jump from audit/tax to deals or FP&A is 40–80%.','6–18 months: Specialise in M&A, restructuring, or corporate finance. Generalist CAs plateau.','18–36 months: CFO-track requires P&L ownership or a Chief Accounting Officer stepping stone.'] },
+  },
+  management: {
+    'product-mgr':    { label:'Project Manager',                           bands:{ india:{p25:8,p50:16,p75:30,p90:55},   uk:{p25:38,p50:55,p75:75,p90:105},   usa:{p25:75,p50:105,p75:140,p90:195},  canada:{p25:65,p50:90,p75:120,p90:165},  australia:{p25:82,p50:108,p75:142,p90:195},  germany:{p25:50,p50:68,p75:90,p90:125},  uae:{p25:130,p50:185,p75:255,p90:380},  singapore:{p25:72,p50:100,p75:138,p90:195} }, skills:['PMP or PRINCE2 Practitioner','Portfolio and programme management','Agile at scale (SAFe, LeSS)','Stakeholder communication at CXO level'], priority:['Programme management — leading multiple simultaneous projects with shared resources and cross-dependencies','Stakeholder communication at CXO level — written updates, risk escalation, and board reporting that executives act on'], nextTitle:'Senior PM or Programme Manager', timeline:['0–4 months: PMP certification. PMI Salary Survey: PMP holders earn 22% more globally. Cost USD 555. ROI: one salary cycle.','4–12 months: Move from project delivery to programme management — leading 3+ simultaneous projects.','12–24 months: Expand to organisational change, not just delivery. Directors of PMOs earn 2x senior PMs.'] },
+    'consultant':     { label:'Management Consultant',                     bands:{ india:{p25:10,p50:20,p75:40,p90:80},   uk:{p25:40,p50:62,p75:90,p90:145},   usa:{p25:90,p50:130,p75:180,p90:280},  canada:{p25:70,p50:105,p75:145,p90:210},  australia:{p25:80,p50:110,p75:152,p90:225},  germany:{p25:55,p50:78,p75:108,p90:160},  uae:{p25:150,p50:220,p75:310,p90:500},  singapore:{p25:80,p50:118,p75:165,p90:260} }, skills:['Structured problem solving (MECE, issue trees)','Slide deck and proposal excellence','Client relationship and executive presence','Industry specialisation (fintech, healthcare, retail)'], priority:['Structured problem solving — MECE decomposition, issue trees, and hypothesis-driven analysis applied to ambiguous real problems','Executive communication — slide decks and verbal presentations that drive decisions, not just inform them'], nextTitle:'Manager or Senior Manager', timeline:['0–6 months: Build one published case study or white paper in your industry specialisation.','6–18 months: Land one marquee client or project. Your rate is set by your best-known work, not your years.','18–36 months: Manager promotion requires building and running a client engagement, not just being on one.'] },
+  },
+  health: {
+    'nurse':          { label:'Nurse / Midwife',                           bands:{ india:{p25:3,p50:5,p75:8,p90:14},     uk:{p25:28,p50:35,p75:44,p90:55},    usa:{p25:60,p50:78,p75:100,p90:135},  canada:{p25:62,p50:78,p75:98,p90:128},   australia:{p25:68,p50:84,p75:108,p90:142},  germany:{p25:38,p50:50,p75:65,p90:85},   uae:{p25:80,p50:115,p75:160,p90:240},   singapore:{p25:42,p50:60,p75:82,p90:115} }, skills:['Clinical specialisation (ICU, ED, theatre, oncology)','IELTS 7.0 or OET Grade B for international roles','NMC / AHPRA / NCLEX registration','Advanced practice qualification'], priority:['English language proficiency at clinical level — IELTS 7.0 in all four components or OET Grade B. This is the single gate for all international nursing routes.','Clinical specialisation in ICU, theatres, oncology, or emergency — Band 6/7 roles (UK) require specialisation and pay 25–40% more than general ward'], nextTitle:'Senior Nurse or Clinical Specialist', timeline:['0–3 months: IELTS Academic or OET. This is the only gate for international nursing. Every week of delay = weeks of career delay.','3–12 months: NMC (UK), AHPRA (Australia), or NCLEX (USA) registration. 6–18 month process — start now.','12–24 months: Band 6/7 (UK) or equivalent — requires clinical specialisation. ICU, theatre, and oncology nurses earn 25–40% above general ward.'] },
+    'physio':         { label:'Physiotherapist',                           bands:{ india:{p25:3,p50:6,p75:12,p90:22},    uk:{p25:28,p50:36,p75:45,p90:60},    usa:{p25:60,p50:75,p75:95,p90:125},  canada:{p25:58,p50:74,p75:95,p90:128},   australia:{p25:65,p50:82,p75:105,p90:140},  germany:{p25:36,p50:48,p75:62,p90:82},   uae:{p25:80,p50:120,p75:170,p90:250},   singapore:{p25:40,p50:58,p75:80,p90:115} }, skills:['Clinical specialisation (MSK, neuro, sports, paediatric)','HCPC / AHPRA registration','IELTS 7.0 each band or OET Grade B','Manual therapy certifications (NAIOMT, OMT)'], priority:['IELTS 7.0 or OET Grade B (gate for all international registration)','HCPC/AHPRA registration (6–18 month process)'], nextTitle:'Senior Physiotherapist or Clinical Lead', timeline:['0–3 months: IELTS Academic or OET. HCPC requires 7.0 in each band — no exceptions.','3–12 months: HCPC/AHPRA application. Complete document gathering (good standing, transcripts, police clearance) simultaneously.','12–24 months: Specialise in MSK or sports. Private practice senior roles pay 40–80% above NHS Band 5.'] },
+  },
+  engineering: {
+    'civil-eng':      { label:'Civil / Structural Engineer',               bands:{ india:{p25:4,p50:9,p75:18,p90:35},   uk:{p25:32,p50:46,p75:64,p90:92},    usa:{p25:58,p50:78,p75:105,p90:145},  canada:{p25:62,p50:82,p75:108,p90:148},  australia:{p25:70,p50:92,p75:120,p90:165},  germany:{p25:42,p50:58,p75:78,p90:110},  uae:{p25:100,p50:145,p75:200,p90:295},  singapore:{p25:48,p50:68,p75:95,p90:138} }, skills:['BIM proficiency (Revit, Civil 3D)','Structural analysis software (ETABS, STAAD)','Project management (PMP or Prince2)','Chartership (CEng UK / PE USA)'], priority:['BIM proficiency (Revit or Civil 3D) — mandatory listed requirement for all major UK government and infrastructure contracts since 2016','Chartered Engineer (CEng UK) or Professional Engineer (PE USA) — required for signing off designs independently. Without this, your ceiling is Associate/Senior Associate.'], nextTitle:'Senior Engineer or Project Engineer', timeline:['0–6 months: BIM proficiency. Required for all major UK and Australian infrastructure contracts. Add to CV immediately.','6–18 months: CEng application (UK) or PE exam (USA). Both gate senior independent roles.','18–36 months: Move from design to project management track — adds 40–80% to ceiling.'] },
+    'mech-eng':       { label:'Mechanical Engineer',                       bands:{ india:{p25:4,p50:8,p75:16,p90:30},   uk:{p25:32,p50:46,p75:65,p90:92},    usa:{p25:60,p50:80,p75:108,p90:152},  canada:{p25:60,p50:80,p75:108,p90:150},  australia:{p25:68,p50:88,p75:118,p90:162},  germany:{p25:48,p50:64,p75:85,p90:118},  uae:{p25:100,p50:145,p75:200,p90:295},  singapore:{p25:48,p50:65,p75:90,p90:130} }, skills:['CAD/CAM (CATIA, SolidWorks, AutoCAD)','FEA and simulation (ANSYS, Abaqus)','Lean/Six Sigma (manufacturing roles)','Renewable energy systems (highest demand 2024–2026)'], priority:['Renewable energy systems knowledge — solar PV, wind, or hydrogen engineering. 68% demand increase 2023–2025. The fastest-growing specialisation in mechanical engineering.','Simulation and FEA competency (ANSYS or Abaqus) — ability to validate designs computationally, not just analytically. Required for aerospace, automotive, and energy roles.'], nextTitle:'Senior Mechanical Engineer', timeline:['0–6 months: Six Sigma Green Belt or equivalent process improvement cert. Adds ₹3–8 LPA and opens manufacturing leadership roles.','6–18 months: Pivot to renewable energy if eligible — solar, wind, and hydrogen engineering roles pay 30–50% above traditional mechanical.','18–36 months: Chartered Engineer application (UK/ANZ) or PE exam (USA) for independent practice rights.'] },
+  },
+  design: {
+    'ui-ux':          { label:'UI / UX Designer',                          bands:{ india:{p25:6,p50:12,p75:22,p90:42},   uk:{p25:32,p50:46,p75:65,p90:95},    usa:{p25:75,p50:105,p75:142,p90:200},  canada:{p25:60,p50:82,p75:112,p90:158},  australia:{p25:68,p50:90,p75:118,p90:165},  germany:{p25:42,p50:58,p75:80,p90:115},  uae:{p25:90,p50:130,p75:185,p90:270},  singapore:{p25:50,p50:72,p75:100,p90:148} }, skills:['End-to-end design systems','User research methods (moderated + unmoderated)','Figma advanced (auto-layout, variables, prototyping)','Product strategy basics'], priority:['Design systems ownership — building and maintaining a component library used by multiple product teams. This is the most visible signal of senior design thinking.','User research methodology — moderated usability testing, synthesis, and translating findings into product decisions. Most designers execute; few can run research independently.'], nextTitle:'Senior Designer or Design Lead', timeline:['0–4 months: Rebuild portfolio to 3 in-depth case studies. Process > aesthetics. Show your thinking, not just the deliverable.','4–12 months: Own one design system end-to-end at your current company. This is the most visible senior-level signal.','12–24 months: Move from execution to influence — design critiques, design strategy, and business impact framing.'] },
+  },
+  marketing: {
+    'digital-mkt':    { label:'Digital Marketing Specialist',              bands:{ india:{p25:4,p50:8,p75:15,p90:28},   uk:{p25:26,p50:38,p75:55,p90:80},    usa:{p25:48,p50:68,p75:95,p90:138},   canada:{p25:42,p50:60,p75:85,p90:125},   australia:{p25:50,p50:68,p75:92,p90:130},   germany:{p25:35,p50:48,p75:68,p90:98},   uae:{p25:80,p50:115,p75:165,p90:250},   singapore:{p25:42,p50:60,p75:85,p90:125} }, skills:['Performance marketing at scale (Meta, Google, programmatic)','Marketing analytics (GA4, attribution modelling)','CRM and marketing automation (HubSpot, Salesforce)','SEO strategy and technical SEO'], priority:['Performance marketing with measurable ROAS — managing paid campaigns at scale with documented return on ad spend. Numbers are the portfolio at this level.','Marketing attribution and analytics — understanding multi-touch attribution, cohort analysis, and LTV modelling to allocate budget decisions, not just report on them'], nextTitle:'Senior Marketing Manager', timeline:['0–3 months: Google Analytics 4, Google Ads, and Meta Blueprint certifications. Free, respected, listed in 60% of JDs.','3–10 months: Manage one paid campaign with a real budget and demonstrate ROAS improvement. Numbers are the portfolio.','10–18 months: Move from channel ownership to strategy ownership — marketing mix, attribution, and brand.'] },
+  },
+};
+
+/* Sector-to-roles mapping for the dropdown */
+var SECTOR_ROLES = {
+  tech:        ['swe-junior','swe-mid','swe-senior','data-scientist','product','devops'],
+  finance:     ['fin-analyst','ca'],
+  management:  ['product-mgr','consultant'],
+  health:      ['nurse','physio'],
+  engineering: ['civil-eng','mech-eng'],
+  design:      ['ui-ux'],
+  marketing:   ['digital-mkt'],
+};
+
+/* Company type multipliers
+   Source: Glassdoor, LinkedIn Salary, Levels.fyi,
+   Naukri salary reports 2024-2025.
+   FAANG/Big Tech pays 2-3x market median in India for tech roles.
+   IT services firms pay 20-35% below product companies.
+   MBB pays highest in consulting; Big 4 ~20% below MBB.
+*/
+var COMPANY_MULT = {
+  'faang':              1.85,  // FAANG/Big Tech: 85% above market median
+  'unicorn':            1.38,  // Well-funded unicorns: 38% above
+  'series-b':           1.00,  // Growth-stage: baseline
+  'series-a':           0.82,  // Early startup: cash-poor, equity-rich
+  'product-co':         1.12,  // Established product companies
+  'mnc':                1.10,  // MNCs: good pay, slower growth
+  'conglomerate':       0.98,  // Large Indian conglomerates: near market
+  'sme':                0.78,  // SMEs: significantly below market
+  'big4':               1.15,  // Big 4: premium for brand/training
+  'mbb':                1.55,  // MBB: McKinsey/BCG/Bain premium
+  'boutique-consulting':1.08,  // Boutique: slightly above market
+  'it-services':        0.72,  // IT services: TCS/Wipro/Infosys pay less
+  'psu':                0.75,  // PSUs: low cash, high job security
+  'govt':               0.65,  // Government: lowest cash, benefits
+  'ngo':                0.68,  // NGO: mission-driven, below market
+  'freelance':          1.20,  // Freelance: higher gross, no benefits
+};
+
+/* Experience multipliers */
+var EXP_MULT = {
+  '0-1':0.78, '1-3':0.90, '3-5':1.00, '5-8':1.14, '8-12':1.28, '12+':1.40,
+};
+
+/* Education multipliers */
+var QUAL_MULT = { diploma:0.90, bachelors:1.00, masters:1.08, phd:1.12 };
+
+/* Country flag emojis */
+var FLAGS = {
+  india:'🇮🇳', uk:'🇬🇧', usa:'🇺🇸', canada:'🇨🇦',
+  australia:'🇦🇺', germany:'🇩🇪', uae:'🇦🇪', singapore:'🇸🇬',
+};
+var COUNTRY_LABELS = {
+  india:'India', uk:'United Kingdom', usa:'United States',
+  canada:'Canada', australia:'Australia', germany:'Germany',
+  uae:'UAE', singapore:'Singapore',
+};
+
+/* ═══════════════════════════════════
+   EVENT HANDLERS
+═══════════════════════════════════ */
+function onCountryChange(){
+  var country = document.getElementById('sc-country').value;
+  var cfg = CURRENCIES[country];
+  if(cfg){
+    document.getElementById('sc-currency-badge').textContent = cfg.code;
+    document.getElementById('sc-salary').placeholder = cfg.placeholder;
+    document.getElementById('sc-salary-hint').textContent = cfg.hint;
+  } else {
+    document.getElementById('sc-currency-badge').textContent = '—';
+    document.getElementById('sc-salary-hint').textContent = 'Select your country to see the currency and typical range.';
+  }
+  calculate();
+}
+
+function onSectorChange(){
+  var sector = document.getElementById('sc-sector').value;
+  var roleEl = document.getElementById('sc-role');
+  roleEl.innerHTML = '<option value="">Select role</option>';
+  if(SECTOR_ROLES[sector]){
+    SECTOR_ROLES[sector].forEach(function(rk){
+      var roleData = findRole(rk);
+      if(roleData){
+        var opt = document.createElement('option');
+        opt.value = rk;
+        opt.textContent = roleData.label;
+        roleEl.appendChild(opt);
+      }
+    });
+  }
+  calculate();
+}
+
+function findRole(key){
+  for(var sector in ROLES){
+    if(ROLES[sector][key]) return ROLES[sector][key];
+  }
+  return null;
+}
+
+/* ═══════════════════════════════════
+   CALCULATION ENGINE
+═══════════════════════════════════ */
+function fmt(country, value){
+  var cfg = CURRENCIES[country];
+  if(!cfg) return value;
+  var sym = cfg.sym;
+  var unit = cfg.unit;
+  if(country === 'india') return sym + value + ' LPA';
+  return sym + value + 'K';
+}
+
+function calcPercentile(salary, p25, p50, p75, p90){
+  if(salary <= p25) return Math.round((salary / p25) * 25);
+  if(salary <= p50) return Math.round(25 + ((salary - p25) / (p50 - p25)) * 25);
+  if(salary <= p75) return Math.round(50 + ((salary - p50) / (p75 - p50)) * 25);
+  if(salary <= p90) return Math.round(75 + ((salary - p75) / (p90 - p75)) * 15);
+  return Math.min(99, Math.round(90 + ((salary - p90) / p90) * 9));
+}
+
+function calculate(){
+  var name    = document.getElementById('sc-name').value.trim();
+  var country = document.getElementById('sc-country').value;
+  var roleKey = document.getElementById('sc-role').value;
+  var exp     = document.getElementById('sc-exp').value;
+  var qual    = document.getElementById('sc-qual').value;
+  var salInput= parseFloat(document.getElementById('sc-salary').value) || 0;
+  var company = document.getElementById('sc-company').value;
+
+  if(!country || !roleKey){
+    document.getElementById('sc-empty').style.display = 'block';
+    document.getElementById('sc-results-wrap').style.display = 'none';
+    return;
+  }
+
+  var role = findRole(roleKey);
+  if(!role || !role.bands[country]){
+    document.getElementById('sc-empty').style.display = 'block';
+    document.getElementById('sc-results-wrap').style.display = 'none';
+    return;
+  }
+
+  document.getElementById('sc-empty').style.display = 'none';
+  document.getElementById('sc-results-wrap').style.display = 'block';
+  document.getElementById('sc-methodology').style.display = 'block';
+
+  var b     = role.bands[country];
+  var em    = EXP_MULT[exp]   || 1.0;
+  var qm    = QUAL_MULT[qual] || 1.0;
+  var cm    = COMPANY_MULT[company] || 1.0;
+  var mult  = em * qm * cm;
+
+  var p25adj = Math.round(b.p25 * mult * 10) / 10;
+  var p50adj = Math.round(b.p50 * mult * 10) / 10;
+  var p75adj = Math.round(b.p75 * mult * 10) / 10;
+  var p90adj = Math.round(b.p90 * mult * 10) / 10;
+
+  /* Percentile */
+  var pct = salInput > 0 ? calcPercentile(salInput, p25adj, p50adj, p75adj, p90adj) : null;
+
+  /* Render role title */
+  document.getElementById('sc-role-title').textContent = role.nextTitle
+    ? role.label + ' → ' + role.nextTitle
+    : role.label;
+
+  /* Salary ranges */
+  document.getElementById('sc-range-p25').textContent = fmt(country, p25adj);
+  document.getElementById('sc-range-p50').textContent = fmt(country, p50adj);
+  document.getElementById('sc-range-p75').textContent = fmt(country, p75adj);
+
+  /* Percentile bar */
+  if(pct !== null){
+    /* Make the percentile meaningful — show what it actually means */
+    var pctLabel, pctMeaning;
+    if(pct < 25){
+      pctLabel = 'Below market';
+      pctMeaning = 'Bottom 25%';
+    } else if(pct < 40){
+      pctLabel = 'Below median';
+      pctMeaning = pct + 'th percentile';
+    } else if(pct < 60){
+      pctLabel = 'Near median';
+      pctMeaning = pct + 'th percentile';
+    } else if(pct < 75){
+      pctLabel = 'Above median';
+      pctMeaning = pct + 'th percentile';
+    } else if(pct < 90){
+      pctLabel = 'Top quartile';
+      pctMeaning = 'Top 25%';
+    } else {
+      pctLabel = 'Top 10%';
+      pctMeaning = 'Top 10% earner';
+    }
+    document.getElementById('sc-percentile-display').innerHTML = '<div style="font-size:14px;font-weight:800;color:#fff">'+pctLabel+'</div><div style="font-size:12px;color:rgba(255,255,255,.6)">'+pctMeaning+'</div>';
+    document.getElementById('sc-pct-you').textContent = pctLabel + ' — ' + pct + 'th percentile';
+    document.getElementById('sc-pct-fill').style.width = pct + '%';
+    document.getElementById('sc-pct-marker').style.left = pct + '%';
+
+    var segs = document.getElementById('sc-pct-segs').querySelectorAll('.sc-pct-seg');
+    segs[0].classList.toggle('active', pct < 25);
+    segs[1].classList.toggle('active', pct >= 25 && pct < 50);
+    segs[2].classList.toggle('active', pct >= 50 && pct < 75);
+    segs[3].classList.toggle('active', pct >= 75);
+
+    var cfg = CURRENCIES[country];
+    segs[0].querySelector('span').textContent = 'Below ' + cfg.sym + p25adj + cfg.unit;
+    segs[1].querySelector('span').textContent = cfg.sym + p25adj + '–' + p50adj + cfg.unit;
+    segs[2].querySelector('span').textContent = cfg.sym + p50adj + '–' + p75adj + cfg.unit;
+    segs[3].querySelector('span').textContent = 'Above ' + cfg.sym + p75adj + cfg.unit;
+
+    /* Gap callout */
+    var n = name || 'You';
+    var gapBox = document.getElementById('sc-gap-box');
+    var gapIcon = document.getElementById('sc-gap-icon');
+    var gapText = document.getElementById('sc-gap-text');
+
+    var cfg2 = CURRENCIES[country];
+    if(pct < 25){
+      var gapToMedian = Math.round((p50adj - salInput) * 10) / 10;
+      var gapPct = salInput > 0 ? Math.round(((p50adj - salInput) / salInput) * 100) : 0;
+      gapBox.className = 'sc-gap-box positive';
+      gapIcon.textContent = '↑';
+      gapText.innerHTML = '<strong>' + n + ', you are in the bottom 25% for this role.</strong>'
+        + ' The market median is <strong>' + fmt(country, p50adj) + '</strong> — you are <strong>' + fmt(country, gapToMedian) + ' below it</strong>.'
+        + ' A ' + gapPct + '% salary increase is needed to reach median. This is not a negotiation problem — it almost certainly requires a company change. See the timeline below.';
+    } else if(pct < 50){
+      var gapToMedian = Math.round((p50adj - salInput) * 10) / 10;
+      var gapPct = salInput > 0 ? Math.round(((p50adj - salInput) / salInput) * 100) : 0;
+      gapBox.className = 'sc-gap-box positive';
+      gapIcon.textContent = '↑';
+      gapText.innerHTML = '<strong>' + n + ', you are below the market median.</strong>'
+        + ' Median is <strong>' + fmt(country, p50adj) + '</strong>. You need <strong>' + fmt(country, gapToMedian) + ' more</strong> to reach it — a ' + gapPct + '% increase.'
+        + ' Top quartile: <strong>' + fmt(country, p75adj) + '</strong>. The priority skills below close this gap.';
+    } else if(pct < 75){
+      var gapToQ3 = Math.round((p75adj - salInput) * 10) / 10;
+      var gapPct75 = salInput > 0 ? Math.round(((p75adj - salInput) / salInput) * 100) : 0;
+      gapBox.className = 'sc-gap-box neutral';
+      gapIcon.textContent = '✓';
+      gapText.innerHTML = '<strong>' + n + ', you are above the median.</strong>'
+        + ' To reach the top 25%, you need <strong>' + fmt(country, gapToQ3) + ' more</strong> (a ' + gapPct75 + '% increase to <strong>' + fmt(country, p75adj) + '</strong>).'
+        + ' This typically takes 12–18 months through a combination of skill deepening and a strategic company move.';
+    } else if(pct < 90){
+      var gapToP90 = Math.round((p90adj - salInput) * 10) / 10;
+      gapBox.className = 'sc-gap-box neutral';
+      gapIcon.textContent = '★';
+      gapText.innerHTML = '<strong>' + n + ', you are in the top 25% for this role.</strong>'
+        + ' To reach the top 10%, you need <strong>' + fmt(country, gapToP90) + ' more</strong> (to <strong>' + fmt(country, p90adj) + '</strong>).'
+        + ' At this level, the path is specialisation premium, management track, or FAANG/unicorn company upgrade.';
+    } else {
+      gapBox.className = 'sc-gap-box neutral';
+      gapIcon.textContent = '★';
+      gapText.innerHTML = '<strong>' + n + ', you are a top 10% earner for this role.</strong>'
+        + ' The next level (' + fmt(country, p90adj) + '+) requires either a Director/VP title, a FAANG-tier company, or a specialisation that commands a market premium. The roadmap below covers this specifically.';
+    }
+  } else {
+    document.getElementById('sc-percentile-display').textContent = 'Enter salary';
+    document.getElementById('sc-pct-you').textContent = 'Enter your salary';
+    document.getElementById('sc-pct-fill').style.width = '0%';
+    document.getElementById('sc-pct-marker').style.left = '0%';
+    document.getElementById('sc-gap-box').style.display = 'none';
+  }
+  if(salInput > 0){
+    document.getElementById('sc-gap-box').style.display = 'flex';
+  }
+
+  /* Global comparison */
+  var rows = '';
+  var allCountries = ['india','uk','usa','canada','australia','germany','uae','singapore'];
+  var maxVal = 0;
+  var globalVals = {};
+  allCountries.forEach(function(c){
+    if(role.bands[c]){
+      var bm = role.bands[c];
+      var usdVal = PPP_TO_USD[c] ? PPP_TO_USD[c](bm.p50) : bm.p50;
+      globalVals[c] = usdVal;
+      if(usdVal > maxVal) maxVal = usdVal;
+    }
+  });
+
+  allCountries.forEach(function(c){
+    if(!role.bands[c]) return;
+    var bm   = role.bands[c];
+    var cfg2 = CURRENCIES[c];
+    var usdEq= globalVals[c];
+    var barPct = Math.round((usdEq / maxVal) * 100);
+    var isCurrent = c === country;
+    rows += '<div class="sc-global-row" style="'+(isCurrent?'background:#f0f6ff;margin:0 -22px;padding:9px 22px;':'')+'">'
+      + '<div class="sc-global-flag">'+FLAGS[c]+'</div>'
+      + '<div class="sc-global-country">' + COUNTRY_LABELS[c] + (isCurrent?' <span style="font-size:10px;background:var(--teal);color:#fff;padding:2px 7px;border-radius:10px;margin-left:4px;font-weight:700">YOU</span>':'') + '</div>'
+      + '<div style="flex:1;margin:0 12px"><div class="sc-global-bar-wrap"><div class="sc-global-bar" style="width:'+barPct+'%"></div></div></div>'
+      + '<div class="sc-global-range">'+cfg2.sym + bm.p50 + cfg2.unit+'<span style="font-size:10px;color:var(--muted);margin-left:4px">≈ $'+usdEq+'K USD</span></div>'
+      + '</div>';
+  });
+  document.getElementById('sc-global-rows').innerHTML = rows;
+
+  /* Skills */
+  var skillsCtx = name
+    ? name + ', based on your profile, these skills have the highest impact on closing your salary gap:'
+    : 'These skills have the highest market impact for this role at your experience level:';
+  document.getElementById('sc-skills-context').textContent = skillsCtx;
+
+  /* Skills displayed as descriptive cards, not pills */
+  var skillsHtml = '';
+  if(role.priority && role.priority.length){
+    skillsHtml += '<div style="margin-bottom:16px">';
+    skillsHtml += '<div style="font-size:11px;font-weight:800;color:#0A2E73;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Priority — highest salary impact</div>';
+    role.priority.forEach(function(s,i){
+      var parts = s.split(' — ');
+      var skillName = parts[0].trim();
+      var skillWhy = parts[1] ? parts[1].trim() : '';
+      skillsHtml += '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #0A2E73;border-radius:0 8px 8px 0;padding:11px 14px;margin-bottom:8px">'
+        + '<div style="font-size:13px;font-weight:700;color:#0A2E73;margin-bottom:'+(skillWhy?'4px':'0')+'">'+skillName+'</div>'
+        + (skillWhy ? '<div style="font-size:12px;color:#1e40af;line-height:1.6">'+skillWhy+'</div>' : '')
+        + '</div>';
+    });
+    skillsHtml += '</div>';
+  }
+  if(role.skills && role.skills.length){
+    skillsHtml += '<div style="font-size:11px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Supporting skills to develop</div>';
+    skillsHtml += '<div style="display:flex;flex-wrap:wrap;gap:7px">';
+    role.skills.forEach(function(s){
+      skillsHtml += '<span style="font-size:12.5px;font-weight:500;background:#f8fafc;border:1px solid #e2e8f0;color:#334155;padding:6px 12px;border-radius:6px;line-height:1">'+s+'</span>';
+    });
+    skillsHtml += '</div>';
+  }
+  document.getElementById('sc-skills').innerHTML = skillsHtml;
+
+  /* Timeline */
+  var tlTitle = name
+    ? name + '\u2019s realistic path to the next level'
+    : 'Realistic path to the next salary level';
+  document.getElementById('sc-timeline-title').textContent = tlTitle;
+
+  var tlHtml = '';
+  (role.timeline||[]).forEach(function(step){
+    tlHtml += '<div class="sc-timeline-row">'
+      + '<div class="sc-timeline-dot"></div>'
+      + '<div class="sc-timeline-content">'
+      + '<div class="sc-timeline-text">'+step+'</div>'
+      + '</div></div>';
+  });
+  document.getElementById('sc-timeline').innerHTML = tlHtml;
+
+  /* CTA text */
+  var ctaTxt = name
+    ? name + ', your salary benchmark is ready. Book a free 30-minute session with a Tutorment counsellor to build a specific action plan based on your exact situation.'
+    : 'Your benchmark is ready. Book a free session to turn this into a specific action plan.';
+  document.getElementById('sc-cta-text').textContent = ctaTxt;
+
+  /* Disclaimer */
+  var compLabel = {'faang':'FAANG / Big Tech companies','unicorn':'unicorn startups','series-b':'growth-stage startups','series-a':'early-stage startups','product-co':'product companies','mnc':'multinational corporations','conglomerate':'large Indian conglomerates','sme':'SMEs','big4':'Big 4 firms','mbb':'MBB consulting firms','boutique-consulting':'boutique consulting firms','it-services':'IT services firms','psu':'PSUs','govt':'government organisations','ngo':'NGOs','freelance':'freelance/consulting work'}[company]||'companies';
+  document.getElementById('sc-disclaimer').textContent
+    = 'Salary ranges are for ' + compLabel + ' in '
+    + COUNTRY_LABELS[country] + ' at '
+    + ({'0-1':'0–1','1-3':'1–3','3-5':'3–5','5-8':'5–8','8-12':'8–12','12+':'12+'}[exp]||exp)
+    + ' years experience with a '
+    + ({'diploma':'diploma','bachelors':'bachelor\'s degree','masters':'master\'s degree','phd':'PhD'}[qual]||qual)
+    + '. Data sourced from Glassdoor, LinkedIn Salary, Levels.fyi, Naukri, Totaljobs, SEEK, and industry salary surveys (2024–2025). PPP adjustments approximate. Individual offers vary based on company size, interview performance, and specific skill stack.';
+}
+</script>
+</body>
+</html>

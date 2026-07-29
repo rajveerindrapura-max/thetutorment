@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../TT_Favicon.svg">
+  <link rel="apple-touch-icon" href="../TT_Favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services. The Tutorment | India and International</title>
+<meta name="description" content="All services by The Tutorment. Two wings. India and International. Health and Care Professions Council registration, Nursing and Midwifery Council, sponsored jobs, Qualified Teacher Status, funded PhD, campus placement, salary enhancement and more.">
+<link rel="preload" href="../shared.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../shared.css"></noscript>
+  <link rel="preload" href="../css/nav.v3.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../css/nav.v3.css"></noscript>
+<style>
+.wing-tabs {
+  display:flex;
+  border-bottom:2px solid var(--border);
+  margin-bottom:40px;
+}
+.wing-tab {
+  font-size:16px;font-weight:700;
+  padding:14px 32px;
+  border:none;background:none;cursor:pointer;
+  color:var(--dim);font-family:inherit;
+  border-bottom:3px solid transparent;
+  margin-bottom:-2px;
+  transition:all .15s;
+}
+.wing-tab.active {
+  color:var(--blue);
+  border-bottom-color:var(--blue);
+}
+.wing-panel { display:none; }
+.wing-panel.active { display:block; }
+
+.svc-item {
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:24px;
+  padding:28px 0;border-bottom:1px solid var(--border);
+}
+.svc-item:last-child { border-bottom:none; }
+.svc-num {
+  font-size:11px;font-weight:700;color:var(--blue);
+  letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:8px;display:block;
+}
+.svc-title { font-size:20px;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.25; }
+.svc-desc { font-size:15px;font-weight:300;line-height:1.72;color:var(--mid);max-width:680px; }
+.svc-tags { display:flex;flex-wrap:wrap;gap:8px;margin-top:14px; }
+.svc-tag { font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;background:var(--blue-l);color:var(--blue); }
+.svc-action { text-align:right;flex-shrink:0; }
+.svc-link {
+  font-size:13.5px;font-weight:700;color:var(--blue);
+  border:1.5px solid var(--blue);padding:8px 18px;
+  border-radius:4px;display:inline-block;
+  text-decoration:none;transition:all .12s;white-space:nowrap;
+}
+.svc-link:hover { background:var(--blue-l); }
+
+.wing-intro {
+  display:flex;align-items:flex-start;gap:24px;
+  background:var(--blue-l);border:1px solid #c6d9f8;
+  border-radius:10px;padding:28px;margin-bottom:36px;
+}
+.wing-intro-icon {
+  font-size:40px;flex-shrink:0;line-height:1;
+}
+.wing-intro-title { font-size:20px;font-weight:700;color:var(--blue);margin-bottom:8px; }
+.wing-intro-body { font-size:14.5px;font-weight:300;line-height:1.72;color:var(--text); }
+
+@media(max-width:700px) {
+  .svc-item { grid-template-columns:1fr; }
+  .svc-action { text-align:left; }
+  .wing-tab { padding:12px 18px;font-size:14px; }
+}
+</style>
+  <link rel="canonical" href="https://www.thetutorment.com/pages/services.html">
+</head>
+<body>
+<div id="main-nav" data-root="../"></div>
+
+<div class="page-hero">
+  <div class="container">
+    <span class="section-label" style="color:rgba(255,255,255,.7)">All Services</span>
+    <h1>What we do, plainly listed</h1>
+    <p>Two wings, nine services. Select your wing below to see what is available for you.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <div class="wing-tabs">
+      <button class="wing-tab active" onclick="switchWing('international', this)">International Wing</button>
+      <button class="wing-tab" onclick="switchWing('india', this)">India Wing</button>
+    </div>
+
+    <!-- INTERNATIONAL WING -->
+    <div class="wing-panel active" id="panel-international">
+
+      <div class="wing-intro">
+        <div class="wing-intro-icon">United Kingdom</div>
+        <div>
+          <div class="wing-intro-title">International Wing. UK and Abroad</div>
+          <p class="wing-intro-body">For internationally trained professionals and students looking to build careers in the United Kingdom or pursue international education. . Every service is delivered one-to-one by someone who has personally been through the same process.</p>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 01</span>
+          <div class="svc-title">Health and Care Professions Council Registration for Internationally Trained Health Professionals</div>
+          <p class="svc-desc">The Health and Care Professions Council regulates 15 health professions in the United Kingdom. If you trained outside the UK, you must apply through the international registration route before you can practice legally or use your professional title. The most common reason for rejection is a documentation error that takes minutes to fix once someone who knows the process looks at it. We review your full application, clinical hours, qualification equivalence, English language evidence, reference letters, before you submit a single page.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Physiotherapy</span>
+            <span class="svc-tag">Occupational Therapy</span>
+            <span class="svc-tag">Radiography</span>
+            <span class="svc-tag">Speech Therapy</span>
+            <span class="svc-tag">Paramedic</span>
+            <span class="svc-tag">Dietitian</span>
+            <span class="svc-tag">Podiatry</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/international.html#hcpc" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 02</span>
+          <div class="svc-title">Nursing and Midwifery Council Registration for Internationally Trained Nurses and Midwives</div>
+          <p class="svc-desc">The Nursing and Midwifery Council registers all nurses, midwives and nursing associates who practice in the United Kingdom. International applicants must complete the overseas registration route including a Computer Based Test and an Objective Structured Clinical Examination. We guide you through every stage, initial application, Computer Based Test preparation, supervised practice placement support, and Objective Structured Clinical Examination preparation with a counsellor who has been through the same process.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Registered Nurses</span>
+            <span class="svc-tag">Midwives</span>
+            <span class="svc-tag">Nursing Associates</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/international.html#nmc" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 03</span>
+          <div class="svc-title">Sponsored Job Search in the United Kingdom</div>
+          <p class="svc-desc">To work in the United Kingdom as a non-settled person, you need a job offer from an employer that holds a valid Skilled Worker sponsor licence. We identify employers on the Home Office register who are actively hiring in your field, tailor your resume and cover letter for each role, and apply to 30 to 50 positions per month on your behalf. Every application is tracked and reported to you weekly. You focus on preparing for interviews while we handle the pipeline.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Technology</span>
+            <span class="svc-tag">Healthcare</span>
+            <span class="svc-tag">Finance</span>
+            <span class="svc-tag">Engineering</span>
+            <span class="svc-tag">Education</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/international.html#jobs" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 04</span>
+          <div class="svc-title">Teaching in the United Kingdom. Qualified Teacher Status, International Qualified Teacher Status and Assessment Only</div>
+          <p class="svc-desc">Qualified Teacher Status is required to teach in state-maintained schools in England. Whether you are an experienced teacher from overseas seeking Qualified Teacher Status recognition, a working teacher wanting to qualify through Assessment Only, or someone looking to train internationally through the International Qualified Teacher Status programme, we assess which route fits your background and guide you through every requirement. The Assessment Only route, the International Qualified Teacher Status programme, and the Postgraduate Certificate in Education each suit different circumstances, we tell you which applies to yours.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Qualified Teacher Status Recognition</span>
+            <span class="svc-tag">International Qualified Teacher Status</span>
+            <span class="svc-tag">Assessment Only</span>
+            <span class="svc-tag">Postgraduate Certificate in Education</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/international.html#teaching" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 05</span>
+          <div class="svc-title">Funded PhD and Scholarship Applications</div>
+          <p class="svc-desc">A funded PhD covers your university tuition fees and pays you a living stipend. Getting one requires more than a strong academic record, it requires a well-constructed research proposal that clearly identifies a genuine gap, a methodology that is appropriate and justified, and a supervisor who has agreed to support your application. We work with your research idea from first draft to funded offer. Research proposal writing, supervisor identification and outreach, and full essay strategy for Chevening, Commonwealth, United Kingdom Research and Innovation, GREAT, and Fulbright funding.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Chevening</span>
+            <span class="svc-tag">Commonwealth</span>
+            <span class="svc-tag">United Kingdom Research and Innovation</span>
+            <span class="svc-tag">GREAT Scholarship</span>
+            <span class="svc-tag">Research Proposal Writing</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/international.html#phd" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 06</span>
+          <div class="svc-title">University Admissions Abroad with Scholarship Negotiation</div>
+          <p class="svc-desc">We manage university applications for students seeking master's programmes in the United Kingdom, Australia, Canada, and Ireland. Scholarship applications are built into our process from day one, we do not wait until after you receive an offer letter. We handle university shortlisting, personal statement writing across multiple drafts, reference letter guidance, application submission, and scholarship negotiation after offer receipt.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">United Kingdom</span>
+            <span class="svc-tag">Australia</span>
+            <span class="svc-tag">Canada</span>
+            <span class="svc-tag">Ireland</span>
+            <span class="svc-tag">Personal Statement</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/international.html#admissions" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- INDIA WING -->
+    <div class="wing-panel" id="panel-india">
+
+      <div class="wing-intro">
+        <div class="wing-intro-icon">India</div>
+        <div>
+          <div class="wing-intro-title">India Wing. Placements, Upskilling and Career Growth</div>
+          <p class="wing-intro-body">For students at tier-2 and tier-3 colleges across India and for working professionals who have been in the same salary bracket for too long. Every session is live, one-to-one, and delivered by a practitioner who works in your target field right now, not a trainer, not a recorded course, not a placement agency with a database of CVs.</p>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 01</span>
+          <div class="svc-title">Campus Placement for Tier-2 and Tier-3 College Students</div>
+          <p class="svc-desc">A 12-week programme that combines upskilling and placement strategy. We focus on students the big platforms consistently overlook, those at smaller colleges without the brand name that opens doors at product companies. We assess your current skills, identify the specific gaps between where you are and what companies are looking for, rebuild your profile, run targeted mock interviews, and apply to relevant companies on your behalf while you focus on preparation. Applications tracked and reported weekly.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Software Engineering</span>
+            <span class="svc-tag">Data Analytics</span>
+            <span class="svc-tag">Product Management</span>
+            <span class="svc-tag">Finance</span>
+            <span class="svc-tag">Marketing</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/india.html#placement" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 02</span>
+          <div class="svc-title">Professional Upskilling. One-to-One with Working Professionals</div>
+          <p class="svc-desc">Every instructor we pair you with holds a current job in the field they teach. A data engineer who works at a Bangalore-based startup teaches data engineering. A product manager at a fintech company teaches product management. Not recorded videos, not group classes, not a curriculum built three years ago. Live, one-to-one sessions on what the job actually requires today. Nine skill areas covered including software development, data analytics, cloud computing and development operations, product management, digital marketing, finance, communication, interface and user experience, and project management.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Python and Backend</span>
+            <span class="svc-tag">Data Science</span>
+            <span class="svc-tag">Cloud Computing and Development Operations</span>
+            <span class="svc-tag">Product Management</span>
+            <span class="svc-tag">Digital Marketing</span>
+            <span class="svc-tag">interface and user experience Design</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/india.html#upskilling" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 03</span>
+          <div class="svc-title">Job Applications Done For You</div>
+          <p class="svc-desc">Job searching is time-consuming work that pulls focus away from the interview preparation that actually determines outcomes. We handle the search, shortlisting, tailoring, and submission. Thirty to fifty tailored applications per month across Naukri, LinkedIn, and company career pages, submitted on your behalf. Every application tracked in a weekly report. You focus on being ready when the callbacks come in. We handle everything until they do.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Naukri</span>
+            <span class="svc-tag">LinkedIn</span>
+            <span class="svc-tag">Company Career Pages</span>
+            <span class="svc-tag">Off-Platform Roles</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/india.html#jobs" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 04</span>
+          <div class="svc-title">Salary Package Enhancement for Working Professionals</div>
+          <p class="svc-desc">Many working professionals in India are stuck in the same salary bracket for two, three, or four years. The reason is almost never that they lack the ability, it is that they have the wrong skill mix for the roles that pay more, or they do not know how to negotiate an offer effectively. We identify the specific gap between your current role and the roles that pay significantly more, close that gap with six to ten weeks of focused sessions, and prepare you for the salary negotiation conversation that most professionals either avoid or handle badly.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Skill Gap Analysis</span>
+            <span class="svc-tag">Targeted Upskilling</span>
+            <span class="svc-tag">Profile Repositioning</span>
+            <span class="svc-tag">Offer Negotiation</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/india.html#salary" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 05</span>
+          <div class="svc-title">Study Abroad from India, with Scholarship from Day One</div>
+          <p class="svc-desc">Every year, thousands of Indian students apply to universities abroad and pay full fees when a scholarship was available. We make scholarship applications a core part of the process, not something we think about after an offer letter arrives. We handle personal statement writing across multiple drafts, university shortlisting based on your academic profile and budget, reference letter guidance, application submission to up to five universities, and scholarship applications alongside every admission.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">United Kingdom</span>
+            <span class="svc-tag">Australia</span>
+            <span class="svc-tag">Canada</span>
+            <span class="svc-tag">Ireland</span>
+            <span class="svc-tag">Personal Statement</span>
+            <span class="svc-tag">Scholarship Applications</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/india.html#abroad" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+      <div class="svc-item">
+        <div>
+          <span class="svc-num">Service 06</span>
+          <div class="svc-title">Mock Interviews and Interview Coaching</div>
+          <p class="svc-desc">Generic mock interview practice prepares you for generic interviews. We run targeted sessions based on the specific companies and roles you are applying to. We focus on the question types where you lose marks, not a walkthrough of common questions but a diagnosis of your actual weak points followed by targeted drilling. Our interviewers work in the industries and companies you are targeting. They know what the actual interview looks and feels like.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Technical Interviews</span>
+            <span class="svc-tag">Human Resources and Behavioural</span>
+            <span class="svc-tag">Case Interviews</span>
+            <span class="svc-tag">Group Discussions</span>
+          </div>
+        </div>
+        <div class="svc-action">
+          <a href="../pages/india.html#placement" class="svc-link">Learn more</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cta-box" style="min-height:44px;margin-top:48px;background:var(--blue)">
+      <h2>Not sure which service fits your situation?</h3>
+      <p>Book a free session. We will assess your background and tell you exactly which service is right, or tell you honestly if none of them are.</p>
+      <a href="../pages/contact.html" class="btn-white">Book free session</a>
+    </div>
+
+  </div>
+</section>
+
+<a href="https://wa.me/919057054077" style="position:fixed;bottom:24px;right:24px;z-index:300;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.2)" aria-label="WhatsApp">
+  <svg width="24" height="24" fill="#fff" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
+
+<footer class="site-footer" id="site-footer" data-root="../"></footer>
+<script src="../nav.v3.js" defer></script>
+<script src="../footer.v3.js" defer></script>
+<script>
+function switchWing(wing, btn) {
+  document.querySelectorAll('.wing-tab').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.wing-panel').forEach(function(p){ p.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById('panel-' + wing).classList.add('active');
+}
+
+// Open correct tab if URL has hash
+window.addEventListener('load', function(){
+  if (window.location.hash && window.location.hash.includes('india')) {
+    document.querySelectorAll('.wing-tab')[1].click();
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "tutorment-archive",
+  "version": "1.0.0",
+  "description": "Local server for Tutorment",
+  "main": "tutorment-local-server.js",
+  "scripts": {
+    "start": "node tutorment-local-server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.2"
+  }
+}

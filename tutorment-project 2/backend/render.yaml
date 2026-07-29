@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: tutorment-backend
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: NOTIFY_EMAIL
+        sync: false
+      - key: FRONTEND_URL
+        value: https://thetutorment.com

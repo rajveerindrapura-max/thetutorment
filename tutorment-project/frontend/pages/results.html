@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="../TT_Favicon.svg">
+<link rel="apple-touch-icon" href="../TT_Favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Results | The Tutorment</title>
+<link rel="stylesheet" href="../shared.css?v=2.2">
+  <link rel="stylesheet" href="../css/nav.v3.css?v=2.2">
+<style>
+/* ── Stats ── */
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #E4E7EC;border-radius:12px;overflow:hidden;background:#fff;margin-bottom:64px}
+.stat-cell{padding:32px 20px;border-right:1px solid #E4E7EC;text-align:center;position:relative}
+.stat-cell:last-child{border-right:none}
+.stat-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.sc1::before{background:#0A2E73}.sc2::before{background:#1E88E5}.sc3::before{background:#00B3A4}.sc4::before{background:#15803d}
+.stat-n{font-size:38px;font-weight:800;line-height:1;margin-bottom:8px;font-family:'Manrope',sans-serif}
+.sc1 .stat-n{color:#0A2E73}.sc2 .stat-n{color:#1E88E5}.sc3 .stat-n{color:#00B3A4}.sc4 .stat-n{color:#15803d}
+.stat-l{font-size:13px;color:#667085;line-height:1.5;max-width:140px;margin:0 auto}
+/* ── Wing label ── */
+.wing-label{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.wing-label::after{content:'';flex:1;height:1px;background:#E4E7EC}
+.wing-pill{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:5px 14px;border-radius:20px;white-space:nowrap}
+.pill-uk{background:#EBF0FA;color:#0A2E73}.pill-in{background:#ecfdf5;color:#15803d}
+/* ── Carousel wrapper ── */
+.car-wrap{margin-bottom:48px}
+.car-prog-bar{display:none}
+/* The scroll container — no JS needed for layout */
+.car-scroll{
+  display:flex;gap:20px;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  padding-bottom:4px;
+  /* CRITICAL: must have a definite width for child % to resolve */
+  width:100%;box-sizing:border-box;
+}
+.car-scroll::-webkit-scrollbar{display:none}
+/* Cards: use vw minus sidebar/padding, not % of flex container */
+.car-card{
+  /* 3 cards: (100vw - 48px container padding - 2*20px gaps) / 3 */
+  flex:0 0 calc((100vw - 88px) / 3);
+  max-width:420px;
+  scroll-snap-align:start;
+}
+/* ── Result card ── */
+.r-card{background:#fff;border:1px solid #E4E7EC;border-radius:12px;overflow:hidden;height:100%;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.r-card:hover{box-shadow:0 6px 20px rgba(10,46,115,.09);transform:translateY(-2px)}
+.r-foot{padding:16px 22px 10px;display:flex;align-items:center;gap:10px;order:-1}
+.r-stars{padding:0 22px 6px;font-size:14px;color:#F59E0B;letter-spacing:2px}
+.r-body{padding:0 22px 22px;flex:1;position:relative}
+.r-body::before{display:none}
+.r-q{font-size:14px;line-height:1.78;color:#344054}
+.r-pill{display:inline-flex;align-items:center;margin-top:12px;font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px}
+.r-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;font-family:'Manrope',sans-serif}
+.av-uk{background:#EBF0FA;color:#0A2E73}.av-in{background:#ecfdf5;color:#15803d}
+.r-name{font-size:13.5px;font-weight:700;color:#101828}
+.r-sub{font-size:11.5px;color:#667085;margin-top:1px}
+.r-badge{margin-left:auto;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.badge-uk{background:#EBF0FA;color:#0A2E73}.badge-in{background:#ecfdf5;color:#15803d}
+/* Nav row */
+.car-nav{display:flex;align-items:center;justify-content:flex-end;margin-top:14px}
+.car-dots-wrap{display:none}
+.car-btns{display:flex;gap:8px}
+.c-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid #E4E7EC;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#667085;transition:all .15s}
+.c-btn:hover{border-color:#0A2E73;color:#0A2E73;background:#EBF0FA}
+.c-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+/* CTA */
+.r-cta{background:linear-gradient(135deg,#0A2E73,#0d3d8f 55%,#1E88E5);border-radius:14px;padding:48px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-top:12px}
+.r-cta h3{font-size:26px;font-weight:800;margin-bottom:8px;font-family:'Manrope',sans-serif;color:#fff}
+.r-cta p{font-size:14.5px;color:rgba(255,255,255,.8);line-height:1.65}
+@media(max-width:960px){
+  .stats-strip{grid-template-columns:1fr 1fr}
+  .stat-cell:nth-child(2){border-right:none}
+  .stat-cell:nth-child(3){border-top:1px solid #E4E7EC}
+  .car-card{flex:0 0 calc((100vw - 68px) / 2);max-width:500px}
+}
+@media(max-width:640px){
+  .stats-strip{grid-template-columns:1fr}
+  .stat-cell{border-right:none!important;border-bottom:1px solid #E4E7EC}
+  .car-card{flex:0 0 88vw;max-width:none}
+  .r-cta{flex-direction:column;padding:32px 24px}
+}
+</style>
+  <meta name="description" content="Real results from The Tutorment students and professionals. HCPC registration approvals, UK job placements, funded PhD awards, salary increases, and campus placement outcomes across India and internationally.">
+  <link rel="canonical" href="https://www.thetutorment.com/pages/results.html">
+</head>
+<body data-page="results">
+<div id="main-nav" data-root="../"></div>
+
+<div class="page-hero" style="padding:56px 24px 52px">
+  <div class="container">
+    <span class="section-label" style="color:rgba(255,255,255,.65)">Student Results</span>
+    <h1 style="margin-bottom:14px">What happened after</h1>
+    <p style="max-width:540px;margin:0 auto;font-size:17px">These are not collected for marketing. They are what students said when they came back to refer someone else. Unsolicited, specific, and unedited.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <!-- Stats -->
+    <div class="stats-strip">
+      <div class="stat-cell sc1"><div class="stat-n">5,000+</div><div class="stat-l">Students guided since 2024</div></div>
+      <div class="stat-cell sc2"><div class="stat-n">93%</div><div class="stat-l">Satisfaction rate across all programmes</div></div>
+      <div class="stat-cell sc3"><div class="stat-n">£50k+</div><div class="stat-l">Highest UK package secured</div></div>
+      <div class="stat-cell sc4"><div class="stat-n">100%</div><div class="stat-l">HCPC applications we reviewed were approved</div></div>
+    </div>
+
+    <!-- ═══════════════ UK CAROUSEL ═══════════════ -->
+    <div class="wing-label"><span class="wing-pill pill-uk">International Wing</span></div>
+    <div class="car-wrap">
+      <div class="car-prog-bar"><div class="car-prog-fill" id="prog-uk" style="background:#0A2E73"></div></div>
+      <div class="car-scroll" id="scroll-uk">
+
+        <div class="car-card"><div class="r-card">
+          <div class="r-foot"><div class="r-av av-uk">H</div><div><div class="r-name">Harshitha</div><div class="r-sub">Interior Designer · United Kingdom</div></div><span class="r-badge badge-uk">Sponsored Job</span></div>
+          <div class="r-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="r-body"><p class="r-q">Starting from scratch felt overwhelming, but TheTutorment made every step simple. Their personalized guidance, transparent process, and continuous support helped me build a strong profile and confidently secure my sponsored opportunity in the UK.</p><span class="r-pill" style="background:#EBF0FA;color:#0A2E73">Sponsored Job · UK</span></div>
+        </div></div>
+
+        <div class="car-card"><div class="r-card">
+          <div class="r-foot"><div class="r-av av-uk">P</div><div><div class="r-name">Partibha</div><div class="r-sub">Registered Nurse · United Kingdom</div></div><span class="r-badge badge-uk">Sponsored Job</span></div>
+          <div class="r-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          <div class="r-body"><p class="r-q">TheTutorment supported me throughout my UK nursing application with patience and professionalism. From documentation to profile preparation, every step was carefully guided. Their timely assistance made the entire process much smoother and helped me secure my sponsorship opportunity with confidence.</p><span class="r-pill" style="background:#EBF0FA;color:#0A2E73">UK Nursing Application · Sponsored Job</span></div>
+        </div></div>
+
+      </div>
+      <div class="car-nav">
+        <div class="car-dots-wrap" id="dots-uk"></div>
+        <div class="car-btns">
+          <button class="c-btn" id="prev-uk" onclick="carScroll('uk',-1)"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="c-btn" id="next-uk" onclick="carScroll('uk',1)"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ INDIA CAROUSEL ═══════════════ -->
+    <div class="wing-label" style="margin-top:40px"><span class="wing-pill pill-in">India Wing</span></div>
+    <div class="car-wrap">
+      <div class="car-prog-bar"><div class="car-prog-fill" id="prog-in" style="background:#15803d"></div></div>
+      <div class="car-scroll" id="scroll-in">
+
+        <div class="car-card"><div class="r-card">
+          <div class="r-foot"><div class="r-av av-in">PN</div><div><div class="r-name">Pratik Nama</div><div class="r-sub">MERN Stack Developer · India</div></div><span class="r-badge badge-in">Tech Career</span></div>
+          <div class="r-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="r-body"><p class="r-q">I came to TheTutorment looking for direction in my tech career. Their resume optimization, interview preparation, and personalized guidance helped me become more confident throughout the process. The support was always timely and professional, and I genuinely felt they were invested in helping me succeed.</p><span class="r-pill" style="background:#ecfdf5;color:#15803d">Tech Career Guidance · India</span></div>
+        </div></div>
+
+
+
+      </div>
+      <div class="car-nav">
+        <div class="car-dots-wrap" id="dots-in"></div>
+        <div class="car-btns">
+          <button class="c-btn" id="prev-in" onclick="carScroll('in',-1)"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+          <button class="c-btn" id="next-in" onclick="carScroll('in',1)"><svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="r-cta">
+      <div>
+        <h2>Your result starts with a free session</h3>
+        <p>Every student above started with a free first session. No card, no commitment.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="../pages/contact.html" style="background:#fff;color:#0A2E73;font-size:14px;font-weight:700;padding:13px 26px;border-radius:8px;text-decoration:none;white-space:nowrap">Book a Free Consultation</a>
+        <a href="https://wa.me/919057054077" target="_blank" style="background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);color:#fff;font-size:14px;font-weight:700;padding:12px 24px;border-radius:8px;text-decoration:none;white-space:nowrap">WhatsApp us</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<footer class="site-footer" id="site-footer" data-root="../"></footer>
+<script src="../nav.v3.js" defer></script>
+<script src="../footer.v3.js" defer></script>
+
+<script>
+/* Carousel — pure scroll, zero JS width calculation */
+function carPP(){ return window.innerWidth < 640 ? 1 : window.innerWidth < 960 ? 2 : 3; }
+
+function carInit(id){
+  var el = document.getElementById('scroll-'+id);
+  var total = el.querySelectorAll('.car-card').length;
+  var pp = carPP();
+  var pages = Math.ceil(total / pp);
+
+  /* build dots */
+  var dc = document.getElementById('dots-'+id);
+  dc.innerHTML = '';
+  for(var i=0;i<pages;i++){
+    var b=document.createElement('button');
+    b.className='c-dot'+(i===0?' on':'');
+    (function(x){ b.onclick=function(){ carGoPage(id,x); }; })(i);
+    dc.appendChild(b);
+  }
+
+  /* listen to scroll */
+  el.addEventListener('scroll', function(){
+    var ratio = el.scrollLeft / Math.max(1, el.scrollWidth - el.clientWidth);
+    var page = Math.min(pages-1, Math.round(ratio*(pages-1)));
+    carUpdate(id, page, pages);
+  }, {passive:true});
+
+  carUpdate(id, 0, pages);
+}
+
+function carGoPage(id, page){
+  var el = document.getElementById('scroll-'+id);
+  var total = el.querySelectorAll('.car-card').length;
+  var pages = Math.ceil(total / carPP());
+  /* scroll to the card at index page*pp */
+  var cards = el.querySelectorAll('.car-card');
+  var target = cards[page * carPP()];
+  if(target) target.scrollIntoView({behavior:'smooth', block:'nearest', inline:'start'});
+}
+
+function carScroll(id, dir){
+  var el = document.getElementById('scroll-'+id);
+  var total = el.querySelectorAll('.car-card').length;
+  var pages = Math.ceil(total / carPP());
+  var ratio = el.scrollLeft / Math.max(1, el.scrollWidth - el.clientWidth);
+  var page = Math.min(pages-1, Math.round(ratio*(pages-1)));
+  carGoPage(id, Math.max(0, Math.min(page+dir, pages-1)));
+}
+
+function carUpdate(id, page, pages){
+  /* progress */
+  var pf = document.getElementById('prog-'+id);
+  if(pf) pf.style.width = Math.round(((page+1)/pages)*100)+'%';
+  /* dots */
+  var dots = document.querySelectorAll('#dots-'+id+' .c-dot');
+  dots.forEach(function(d,i){ d.className='c-dot'+(i===page?' on':''); });
+  /* arrows */
+  var prev=document.getElementById('prev-'+id);
+  var next=document.getElementById('next-'+id);
+  if(prev) prev.disabled = page===0;
+  if(next) next.disabled = page>=pages-1;
+}
+
+window.addEventListener('load', function(){ carInit('uk'); carInit('in'); });
+window.addEventListener('resize', function(){ carInit('uk'); carInit('in'); });
+</script>
+</body>
+</html>

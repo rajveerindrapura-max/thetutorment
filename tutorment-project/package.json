@@ -1,0 +1,15 @@
+{
+  "name": "tutorment-project",
+  "version": "2.0.0",
+  "description": "The Tutorment — Standalone Web Application & Express Backend",
+  "private": true,
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev:backend": "node backend/server.js",
+    "dev:frontend": "npx serve frontend -p 3000",
+    "install:all": "cd backend && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

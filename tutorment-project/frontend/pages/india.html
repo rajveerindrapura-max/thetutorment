@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="../TT_Favicon.svg">
+  <link rel="apple-touch-icon" href="../TT_Favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India Wing | Campus Placement and Career Growth</title>
+<meta name="description" content="Career guidance for Indian students and professionals. Campus placement for tier-2 and tier-3 college students, salary enhancement for working professionals, and job applications. India Wing by The Tutorment.">
+<link rel="preload" href="../shared.css?v=2.1" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../shared.css?v=2.1"></noscript>
+  <link rel="preload" href="../css/nav.v3.css?v=2.1" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="../css/nav.v3.css?v=2.1"></noscript>
+<style>
+/* Country/category bar */
+.cat-bar{background:rgba(255,255,255,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:2px solid var(--border);position:sticky;top:var(--nav);z-index:200}
+.cb-wrap{max-width:var(--max);margin:0 auto;display:flex;align-items:stretch}
+.cb-arrow{width:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:transparent;border:none;cursor:pointer;color:var(--dim);font-size:22px;transition:color .12s;border-bottom:2px solid transparent}
+.cb-arrow:hover{color:var(--blue)}
+.cb-arrow.hide{opacity:0;pointer-events:none}
+.cb-scroll{flex:1;overflow-x:auto;display:flex;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;gap:0}
+.cb-scroll::-webkit-scrollbar{display:none}
+.cb-btn{font-size:14px;font-weight:700;color:var(--dim);padding:14px 22px;border:none;background:none;cursor:pointer;white-space:nowrap;font-family:inherit;border-bottom:3px solid transparent;transition:all .15s;flex-shrink:0}
+.cb-btn:hover{color:var(--blue);background:rgba(248,249,255,0.5)}
+.cb-btn.cb-on{color:var(--blue);border-bottom-color:var(--blue);background:rgba(240,246,255,0.5)}
+
+/* Service tab bar */
+.svc-bar{background:rgba(247,249,252,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:calc(var(--nav) + 48px);z-index:100}
+.sb-wrap{max-width:var(--max);margin:0 auto;display:flex;align-items:stretch}
+.sb-arrow{width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:transparent;border:none;cursor:pointer;color:var(--dim);font-size:16px;transition:color .12s}
+.sb-arrow:hover{color:var(--blue)}
+.sb-arrow.hide{opacity:0;pointer-events:none}
+.sb-scroll{flex:1;overflow-x:auto;display:flex;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;padding:0 8px}
+.sb-scroll::-webkit-scrollbar{display:none}
+.sb-link{font-size:12.5px;font-weight:600;color:var(--dim);padding:10px 16px;border-bottom:2px solid transparent;white-space:nowrap;text-decoration:none;flex-shrink:0;transition:all .12s}
+.sb-link:hover{color:var(--blue)}
+.sb-link.sb-on{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* Category panels */
+.cat-panel{display:none}
+.cat-panel.cp-on{display:block}
+
+/* Sections */
+.svc-section{padding:56px 0;border-bottom:1px solid var(--border);scroll-margin-top:120px}
+.svc-section:last-child{border-bottom:none}
+.svc-section:nth-child(even){background:var(--bg)}
+
+/* Steps */
+.step-list{display:flex;flex-direction:column;gap:0}
+.step-item{display:grid;grid-template-columns:40px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--border);align-items:start}
+.step-item:last-child{border-bottom:none}
+.step-num{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;margin-top:2px}
+.step-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:5px}
+.step-body{font-size:14px;font-weight:300;line-height:1.7;color:var(--mid)}
+
+/* Checklist with proper blue circles */
+.chk-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.chk-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;font-weight:300;line-height:1.65;color:var(--mid)}
+.chk-dot{width:20px;height:20px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center}
+.chk-dot svg{width:9px;height:9px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+
+/* Info card */
+.info-card{border:1px solid var(--border);border-radius:8px;padding:22px;margin-bottom:16px;background:#fff}
+.info-card-title{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:10px}
+.info-row{display:flex;justify-content:space-between;font-size:13.5px;padding:7px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border-bottom:none}
+.info-row-label{color:var(--dim)}
+.info-row-val{font-weight:600;color:var(--text)}
+
+.req{background:var(--blue-l);border:1px solid #c6d9f8;border-radius:6px;padding:18px 22px;margin:14px 0}
+.req h4{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:8px}
+.req ul{list-style:disc;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.req li{font-size:13.5px;font-weight:300;line-height:1.65;color:var(--text)}
+
+.salary-table{width:100%;border-collapse:collapse;margin-top:20px}
+.salary-table th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);padding:10px 14px;background:var(--bg);border-bottom:2px solid var(--border)}
+.salary-table td{padding:13px 14px;border-bottom:1px solid var(--border);font-size:14px}
+.salary-table tr:last-child td{border-bottom:none}
+.salary-before{color:var(--dim)}
+.salary-after{color:#065f46;font-weight:700}
+
+.sticky-aside{position:sticky;top:calc(var(--nav) + 110px)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+
+.skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
+.skill-card{border:1px solid var(--border);border-radius:8px;padding:18px;transition:all .15s}
+.skill-card:hover{border-color:var(--blue);background:var(--blue-l)}
+.skill-name{font-size:14.5px;font-weight:700;color:var(--text);margin-bottom:6px}
+.skill-desc{font-size:13px;font-weight:300;line-height:1.6;color:var(--mid)}
+
+@media(max-width:900px){.split{grid-template-columns:1fr}.sticky-aside{position:static}.skill-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.skill-grid{grid-template-columns:1fr}}
+</style>
+  <link rel="canonical" href="https://www.thetutorment.com/pages/india.html">
+</head>
+<body data-page="india">
+<div id="main-nav" data-root="../"></div>
+
+<div class="page-hero-blue">
+  <div class="container">
+    <span class="section-label" style="color:rgba(255,255,255,.8)">India Wing</span>
+    <h1>Select your goal.<br>See what applies to you.</h1>
+    <p>Choose your category below. Campus placements, salary growth, job applications, upskilling, or studying abroad, we show you exactly what is available for your situation.</p>
+  </div>
+</div>
+
+<!-- CATEGORY BAR -->
+<div class="cat-bar" id="catBar">
+  <div class="cb-wrap">
+    <button class="cb-arrow hide" id="cbLeft" onclick="cbScroll(-1)">&#8249;</button>
+    <div class="cb-scroll" id="cbTabs">
+      <button class="cb-btn cb-on" onclick="showCat('placement',this)">Campus Placement</button>
+      <button class="cb-btn" onclick="showCat('salary',this)">Salary Enhancement</button>
+      <button class="cb-btn" onclick="showCat('jobs',this)">Job Applications</button>
+      <button class="cb-btn" onclick="showCat('upskilling',this)">Upskilling</button>
+      <button class="cb-btn" onclick="showCat('abroad',this)">Study Abroad</button>
+    </div>
+    <button class="cb-arrow" id="cbRight" onclick="cbScroll(1)">&#8250;</button>
+  </div>
+</div>
+
+
+<!-- ═══ CAMPUS PLACEMENT ═══ -->
+<div class="cat-panel cp-on" id="panel-placement">
+  <div class="svc-bar">
+    <div class="sb-wrap">
+      <button class="sb-arrow hide" id="sbLeft-placement" onclick="sbScroll('placement',-1)">&#8249;</button>
+      <div class="sb-scroll" id="sbTabs-placement">
+        <a href="#pl-overview" class="sb-link sb-on" onclick="sbAct(this,'placement')">How it works</a>
+        <a href="#pl-who" class="sb-link" onclick="sbAct(this,'placement')">Who it is for</a>
+        <a href="#pl-companies" class="sb-link" onclick="sbAct(this,'placement')">Companies</a>
+        <a href="#pl-mock" class="sb-link" onclick="sbAct(this,'placement')">Mock Interviews</a>
+      </div>
+      <button class="sb-arrow" id="sbRight-placement" onclick="sbScroll('placement',1)">&#8250;</button>
+    </div>
+  </div>
+
+  <section id="pl-overview" class="svc-section">
+    <div class="container">
+      <span class="section-label">Campus Placement</span>
+      <h2 class="section-title">Getting placed from a tier-2 or tier-3 college</h2>
+      <p class="section-body" style="margin-bottom:28px">Most placement support focuses on students at the IITs and NITs. We focus on the students those platforms overlook, at smaller colleges who have the ability but not the access. We build skills and placement strategy together over 12 weeks.</p>
+      <div class="split">
+        <div>
+          <div class="step-list">
+            <div class="step-item"><div class="step-num">1</div><div><div class="step-title">Assessment and goal-setting, weeks 1 and 2</div><p class="step-body">We assess your current skills, identify the specific gaps between where you are and what companies in your target sector are looking for, and agree on a realistic placement target. We are honest about what is achievable.</p></div></div>
+            <div class="step-item"><div class="step-num">2</div><div><div class="step-title">Targeted upskilling, weeks 3 to 8</div><p class="step-body">Live one-to-one sessions with a working professional in your target field. Not a recorded course, not a group class. A data analyst or software engineer who works at a product company sitting with you and teaching you what the job actually needs today.</p></div></div>
+            <div class="step-item"><div class="step-num">3</div><div><div class="step-title">Profile building, week 8 to 10</div><p class="step-body">We rebuild your resume from scratch, update your LinkedIn with recruiter-targeted language, and build a portfolio or GitHub profile where relevant. The goal is to make your profile compete with candidates from better-ranked colleges.</p></div></div>
+            <div class="step-item"><div class="step-num">4</div><div><div class="step-title">Interview preparation, week 10 to 12</div><p class="step-body">Targeted mock interviews for the specific companies and roles you are applying to. We focus on the types of questions where you lose marks rather than a generic walkthrough.</p></div></div>
+            <div class="step-item"><div class="step-num">5</div><div><div class="step-title">Applications and follow-up, ongoing</div><p class="step-body">We apply to relevant companies on your behalf and track every application. You receive a weekly report showing where each application stands and which interviews are coming up.</p></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="sticky-aside">
+            <div class="info-card">
+              <div class="info-card-title">Programme details</div>
+              <div class="info-row"><span class="info-row-label">Duration</span><span class="info-row-val">12 weeks</span></div>
+              <div class="info-row"><span class="info-row-label">Session format</span><span class="info-row-val">Live, one-to-one</span></div>
+              <div class="info-row"><span class="info-row-label">Applications per month</span><span class="info-row-val">30 to 50</span></div>
+              <div class="info-row"><span class="info-row-label">First session</span><span class="info-row-val">Free, no card</span></div>
+            </div>
+            <div class="info-card">
+              <div class="info-card-title">What we do for you</div>
+              <ul class="chk-list">
+                <li><div class="chk-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Skills gap analysis specific to your target role</li>
+                <li><div class="chk-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Live sessions with a working professional in your field</li>
+                <li><div class="chk-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Resume and LinkedIn rebuilt from scratch</li>
+                <li><div class="chk-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>30 to 50 job applications per month on your behalf</li>
+                <li><div class="chk-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Weekly tracking report</li>
+                <li><div class="chk-dot"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Targeted mock interviews per company</li>
+              </ul>
+            </div>
+            <div class="cta-box" style="min-height:44px;padding:24px">
+              <h3 style="font-size:17px">Start your placement programme</h3>
+              <p style="font-size:13.5px;margin-bottom:16px">Free first session. We tell you honestly what is achievable and what the programme looks like for your profile.</p>
+              <a href="../pages/contact.html" class="btn-white" style="min-height:44px;font-size:13.5px;padding:9px 18px">Book a Free Consultation</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pl-who" class="svc-section">
+    <div class="container">
+      <span class="section-label">Campus Placement</span>
+      <h2 class="section-title">Who this programme is for</h2>
+      <div class="grid-2" style="gap:24px;margin-top:28px">
+        <div class="card"><div class="card-title">Students in years 1 to 3</div><p class="card-body">At tier-2 or tier-3 engineering, commerce, or management colleges. Starting early means we can build the skill base before placement season begins, not during it. The best outcomes come from students who start in year 2.</p></div>
+        <div class="card"><div class="card-title">Students who went through placement and got no offers</div><p class="card-body">Campus season came and went. We diagnose exactly what went wrong, whether it was the skill set, the resume, the interview performance, or the target list, and address it for off-campus applications.</p></div>
+        <div class="card"><div class="card-title">Students targeting off-campus product companies</div><p class="card-body">Many of the best technology and fintech roles in India are not available through campus drives. They are filled through off-campus applications and referrals. We know how to get your profile in front of those hiring managers.</p></div>
+        <div class="card"><div class="card-title">Recent graduates who are jobless or underemployed</div><p class="card-body">Graduated but not placed, or placed in a role far below your ability. We can restart the application process with a rebuilt profile and targeted outreach to companies that are actually hiring.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pl-companies" class="svc-section">
+    <div class="container">
+      <span class="section-label">Campus Placement</span>
+      <h2 class="section-title">Companies our students have joined</h2>
+      <p class="section-body" style="margin-bottom:24px">These are companies where students from tier-2 and tier-3 colleges across Rajasthan, Madhya Pradesh, Bihar, and other states have been placed after completing our programme.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:32px">
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Infosys</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Tata Consultancy Services</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Wipro</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Razorpay</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Zomato</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">PhonePe</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">HDFC Bank</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Accenture</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Deloitte</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Swiggy</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Persistent Systems</span>
+        <span class="tag tag-blue" style="font-size:13px;padding:7px 16px">Mphasis</span>
+      </div>
+      <div class="req"><h4>We do not promise placements</h3><p style="font-size:13.5px;font-weight:300;line-height:1.68;color:var(--text)">We promise to build your skills, build your profile, and put your application in front of the right companies. The outcome depends on your effort during the programme. Every student we have placed did the work.</p></div>
+    </div>
+  </section>
+
+  <section id="pl-mock" class="svc-section">
+    <div class="container">
+      <span class="section-label">Campus Placement</span>
+      <h2 class="section-title">Mock interviews and interview coaching</h2>
+      <p class="section-body" style="margin-bottom:28px">Generic mock interview practice prepares you for generic interviews. We run sessions based on the specific companies and roles you are applying to. Our interviewers work in the industries you are targeting, they know what the actual interview looks and feels like for that company.</p>
+      <div class="grid-3">
+        <div class="card"><div class="card-title">Technical interviews</div><p class="card-body">Data structures, algorithms, system design, and domain-specific questions. We focus on the types of problems where you are losing marks, not a full revision of everything you already know.</p></div>
+        <div class="card"><div class="card-title">Human resources and behavioural</div><p class="card-body">Situation, task, action, and result structured answers. We prepare you for the behavioural questions that eliminate candidates after they clear the technical round.</p></div>
+        <div class="card"><div class="card-title">Case interviews and group discussions</div><p class="card-body">For management, consulting, and business roles. Case frameworks, group discussion participation, and the specific formats used by the companies you are targeting.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ═══ SALARY ENHANCEMENT ═══ -->
+<div class="cat-panel" id="panel-salary">
+  <div class="svc-bar">
+    <div class="sb-wrap">
+      <button class="sb-arrow hide" id="sbLeft-salary" onclick="sbScroll('salary',-1)">&#8249;</button>
+      <div class="sb-scroll" id="sbTabs-salary">
+        <a href="#sal-how" class="sb-link sb-on" onclick="sbAct(this,'salary')">How it works</a>
+        <a href="#sal-results" class="sb-link" onclick="sbAct(this,'salary')">Real results</a>
+        <a href="#sal-negotiate" class="sb-link" onclick="sbAct(this,'salary')">Negotiation coaching</a>
+      </div>
+      <button class="sb-arrow" id="sbRight-salary" onclick="sbScroll('salary',1)">&#8250;</button>
+    </div>
+  </div>
+
+  <section id="sal-how" class="svc-section">
+    <div class="container">
+      <span class="section-label">Salary Enhancement</span>
+      <h2 class="section-title">Breaking through the salary ceiling</h2>
+      <p class="section-body" style="margin-bottom:28px">Many working professionals in India are stuck in the same salary bracket for two, three, or four years. The reason is almost never a lack of ability. It is usually one or two specific skills that are valued highly in the next level of roles, and the absence of a negotiation strategy when an offer arrives.</p>
+      <div class="split">
+        <div>
+          <div class="step-list">
+            <div class="step-item"><div class="step-num">1</div><div><div class="step-title">Identify the specific gap</div><p class="step-body">We look at your current role, your skills, and the roles that pay significantly more in your field. In most cases the gap is one or two skills, system design for engineers, advanced analytics for data professionals, financial modelling for finance roles. Identifying it precisely takes one session.</p></div></div>
+            <div class="step-item"><div class="step-num">2</div><div><div class="step-title">Close the gap with focused sessions</div><p class="step-body">We pair you with an instructor who holds a job in your target role right now and can teach you the specific skills in 6 to 10 weeks of focused live sessions. Not a recorded course. Not a certification. Practical skills applied to real scenarios from the job you are targeting.</p></div></div>
+            <div class="step-item"><div class="step-num">3</div><div><div class="step-title">Reposition your profile</div><p class="step-body">We update your resume and LinkedIn to reflect the new skills using language that attracts recruiters for higher-paying roles. The framing matters as much as the content.</p></div></div>
+            <div class="step-item"><div class="step-num">4</div><div><div class="step-title">Negotiation coaching before every offer</div><p class="step-body">When an offer arrives, we prepare you for the negotiation conversation. Most professionals leave 10 to 20 percent of their offer on the table by not negotiating at all or by accepting the first number without a response. We prepare you for that specific conversation with that specific company.</p></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="sticky-aside">
+            <div class="cta-box" style="min-height:44px;padding:24px">
+              <h3 style="font-size:17px">Free salary assessment</h3>
+              <p style="font-size:13.5px;margin-bottom:16px">In 30 minutes we will tell you what is holding your salary back, what the realistic ceiling is for your profile, and what it would take to reach it.</p>
+              <a href="../pages/contact.html" class="btn-white" style="min-height:44px;font-size:13.5px;padding:9px 18px">Book free assessment</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sal-results" class="svc-section">
+    <div class="container">
+      <span class="section-label">Salary Enhancement</span>
+      <h2 class="section-title">Real salary jumps our students have made</h2>
+      <table class="salary-table">
+        <thead><tr><th>Role</th><th>Previous package</th><th>New package</th><th>Time taken</th></tr></thead>
+        <tbody>
+          <tr><td>Software Engineer, backend</td><td class="salary-before">4.2 LPA</td><td class="salary-after">14 LPA</td><td>8 weeks</td></tr>
+          <tr><td>Data Analyst</td><td class="salary-before">5.5 LPA</td><td class="salary-after">12.5 LPA</td><td>10 weeks</td></tr>
+          <tr><td>MBA Graduate, Operations</td><td class="salary-before">6 LPA</td><td class="salary-after">15 LPA</td><td>12 weeks</td></tr>
+          <tr><td>Frontend Developer</td><td class="salary-before">3.8 LPA</td><td class="salary-after">9.5 LPA</td><td>9 weeks</td></tr>
+          <tr><td>Digital Marketing Manager</td><td class="salary-before">5 LPA</td><td class="salary-after">10.5 LPA</td><td>11 weeks</td></tr>
+          <tr><td>Product Manager. SaaS</td><td class="salary-before">9 LPA</td><td class="salary-after">22 LPA</td><td>14 weeks</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="sal-negotiate" class="svc-section">
+    <div class="container">
+      <span class="section-label">Salary Enhancement</span>
+      <h2 class="section-title">Salary negotiation coaching</h2>
+      <p class="section-body" style="margin-bottom:28px">Getting an offer is not the end of the process. Most candidates accept the first number they are given. We coach you on how to respond to an offer, what to say when they push back, and how to use competing offers or market benchmarks to anchor a higher number.</p>
+      <div class="grid-2" style="gap:24px">
+        <div class="card"><div class="card-title">What to say when you receive an offer</div><p class="card-body">We give you the exact language to use. Not "I need to think about it" which closes the door. Specific responses that open a negotiation without jeopardising the offer or the relationship with your future employer.</p></div>
+        <div class="card"><div class="card-title">Benchmarking your ask</div><p class="card-body">We pull current market data for your role, city, and experience level so your counteroffer is grounded in evidence rather than a personal wish. Recruiters respond to data, not to preference.</p></div>
+        <div class="card"><div class="card-title">Handling the pushback</div><p class="card-body">Most employers push back at least once. We prepare you for the second conversation, the one where they say the budget is fixed and you need to decide whether to hold your position or accept.</p></div>
+        <div class="card"><div class="card-title">Non-salary components</div><p class="card-body">Base salary, variable pay, joining bonus, notice period buyout, stock options, and remote work terms. We help you evaluate the full package and negotiate the components where flexibility typically exists.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ═══ JOB APPLICATIONS ═══ -->
+<div class="cat-panel" id="panel-jobs">
+  <div class="svc-bar">
+    <div class="sb-wrap">
+      <button class="sb-arrow hide" id="sbLeft-jobs" onclick="sbScroll('jobs',-1)">&#8249;</button>
+      <div class="sb-scroll" id="sbTabs-jobs">
+        <a href="#jb-how" class="sb-link sb-on" onclick="sbAct(this,'jobs')">How it works</a>
+        <a href="#jb-who" class="sb-link" onclick="sbAct(this,'jobs')">Who uses this</a>
+        <a href="#jb-what" class="sb-link" onclick="sbAct(this,'jobs')">What we need from you</a>
+      </div>
+      <button class="sb-arrow" id="sbRight-jobs" onclick="sbScroll('jobs',1)">&#8250;</button>
+    </div>
+  </div>
+
+  <section id="jb-how" class="svc-section">
+    <div class="container">
+      <span class="section-label">Job Applications</span>
+      <h2 class="section-title">We apply on your behalf while you prepare</h2>
+      <p class="section-body" style="margin-bottom:28px">Job searching takes hours every day, time that pulls focus away from interview preparation. We handle the search, shortlisting, tailoring, and submission. You focus on being ready when the callbacks come in.</p>
+      <div class="step-list" style="max-width:700px">
+        <div class="step-item"><div class="step-num">1</div><div><div class="step-title">Build your target job list</div><p class="step-body">We agree on the roles, companies, and cities you are targeting. We then find relevant openings across Naukri, LinkedIn, company career pages, and off-platform opportunities that most candidates never reach.</p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div><div class="step-title">Tailor and apply: 30 to 50 per month</div><p class="step-body">Each application uses your tailored resume and a customised cover note where required. We do not blast your profile to every job, we apply selectively to roles where your profile is a genuine fit.</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div><div class="step-title">Track and report weekly</div><p class="step-body">You receive a tracker every week showing every application sent, every response received, and every interview scheduled. Nothing falls through the gaps.</p></div></div>
+        <div class="step-item"><div class="step-num">4</div><div><div class="step-title">Interview preparation support</div><p class="step-body">When callbacks come in, we prepare you specifically for that company and that role. We know the typical interview format and question types for most major Indian employers.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="jb-who" class="svc-section">
+    <div class="container">
+      <span class="section-label">Job Applications</span>
+      <h2 class="section-title">Who uses this service</h2>
+      <div class="grid-2" style="gap:20px;margin-top:28px">
+        <div class="card"><div class="card-title">Working professionals who cannot job search daily</div><p class="card-body">You have a full-time job and cannot spend 2 hours every evening searching and applying. We do it for you. You get the callbacks without losing focus on your current work.</p></div>
+        <div class="card"><div class="card-title">Freshers who do not know where to start</div><p class="card-body">No placement, no network, no idea which companies are worth targeting. We build the target list, create your profile, and start the pipeline within the first week.</p></div>
+        <div class="card"><div class="card-title">People returning to work after a break</div><p class="card-body">Career gap on the resume, outdated skills, nervous about restarting. We handle the search and prepare you to address the gap confidently in interviews.</p></div>
+        <div class="card"><div class="card-title">Those relocating to a new city</div><p class="card-body">Moving from Jaipur to Bangalore or from Lucknow to Pune. We know the local job market in your target city and start applications before you arrive.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="jb-what" class="svc-section">
+    <div class="container">
+      <span class="section-label">Job Applications</span>
+      <h2 class="section-title">What you need to provide</h2>
+      <div class="req"><h4>To get started</h3><ul><li>Your current resume, we will improve it if needed before we start applying</li><li>Your target roles and preferred cities</li><li>Login credentials for your Naukri and LinkedIn accounts so we can apply on your behalf</li><li>30 minutes per week for a progress call to discuss responses and prepare for upcoming interviews</li></ul></div>
+      <div class="cta-box" style="min-height:44px;margin-top:28px">
+        <h3>Start your job search this week</h3>
+        <p>Book a free session and we will tell you whether your profile is ready to apply or needs work first, and what that work looks like.</p>
+        <a href="../pages/contact.html" class="btn-white">Book a Free Consultation</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ═══ UPSKILLING ═══ -->
+<div class="cat-panel" id="panel-upskilling">
+  <div class="svc-bar">
+    <div class="sb-wrap">
+      <button class="sb-arrow hide" id="sbLeft-upskilling" onclick="sbScroll('upskilling',-1)">&#8249;</button>
+      <div class="sb-scroll" id="sbTabs-upskilling">
+        <a href="#up-how" class="sb-link sb-on" onclick="sbAct(this,'upskilling')">How sessions work</a>
+        <a href="#up-skills" class="sb-link" onclick="sbAct(this,'upskilling')">Skills we cover</a>
+      </div>
+      <button class="sb-arrow" id="sbRight-upskilling" onclick="sbScroll('upskilling',1)">&#8250;</button>
+    </div>
+  </div>
+
+  <section id="up-how" class="svc-section">
+    <div class="container">
+      <span class="section-label">Professional Upskilling</span>
+      <h2 class="section-title">One-to-one sessions with working professionals</h2>
+      <p class="section-body" style="margin-bottom:28px">Every instructor we work with holds a current job in the field they teach. A data engineer who works at a Bangalore-based startup teaches data engineering. A product manager at a fintech company teaches product management. The learning is current, practical, and directly applicable to the job you are targeting.</p>
+      <div class="grid-2" style="gap:28px">
+        <div>
+          <div class="card" style="margin-bottom:16px"><div class="card-title">Not recorded courses</div><p class="card-body">Every session is live and one-to-one. You can ask questions, go off-script, work through a problem you hit at work this week, or slow down on a concept that is not landing. Recorded courses cannot do any of that.</p></div>
+          <div class="card" style="margin-bottom:16px"><div class="card-title">Not group classes</div><p class="card-body">Group sessions move at the slowest learner's pace and address the average student's questions. Our sessions move at your pace and address your specific gaps.</p></div>
+          <div class="card"><div class="card-title">Not generalist trainers</div><p class="card-body">The person teaching you Python for data science actually uses Python for data science at their day job. The person teaching product management actually manages a product. The learning is grounded in what the work actually requires.</p></div>
+        </div>
+        <div>
+          <div class="info-card">
+            <div class="info-card-title">Typical engagement</div>
+            <div class="info-row"><span class="info-row-label">Session length</span><span class="info-row-val">60 to 90 minutes</span></div>
+            <div class="info-row"><span class="info-row-label">Frequency</span><span class="info-row-val">2 to 3 per week</span></div>
+            <div class="info-row"><span class="info-row-label">Total duration</span><span class="info-row-val">6 to 12 weeks typically</span></div>
+            <div class="info-row"><span class="info-row-label">Platform</span><span class="info-row-val">Google Meet or Zoom</span></div>
+            <div class="info-row"><span class="info-row-label">First session</span><span class="info-row-val">Free, no card</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="up-skills" class="svc-section">
+    <div class="container">
+      <span class="section-label">Professional Upskilling</span>
+      <h2 class="section-title">Skills we cover</h2>
+      <div class="skill-grid">
+        <div class="skill-card"><div class="skill-name">Software Development</div><p class="skill-desc">Python, JavaScript, Java, system design, data structures, algorithms, backend and frontend development.</p></div>
+        <div class="skill-card"><div class="skill-name">Data Science and Analytics</div><p class="skill-desc">SQL, Python, machine learning basics, data visualisation, Excel and Power BI for business analysis.</p></div>
+        <div class="skill-card"><div class="skill-name">Cloud and Development Operations</div><p class="skill-desc">AWS, Azure, Docker, Kubernetes, continuous integration and continuous delivery pipelines, infrastructure as code.</p></div>
+        <div class="skill-card"><div class="skill-name">Product Management</div><p class="skill-desc">Product thinking, roadmapping, agile methodology, metrics, user research, stakeholder communication.</p></div>
+        <div class="skill-card"><div class="skill-name">Digital Marketing</div><p class="skill-desc">Search engine optimisation, paid advertising, content strategy, email marketing, analytics and conversion.</p></div>
+        <div class="skill-card"><div class="skill-name">Finance and Accounting</div><p class="skill-desc">Financial modelling, Excel for finance, management accounting, investment basics, CFA preparation support.</p></div>
+        <div class="skill-card"><div class="skill-name">Communication and Presentation</div><p class="skill-desc">Business writing, presentation skills, interview communication, negotiation and stakeholder management.</p></div>
+        <div class="skill-card"><div class="skill-name">Interface and Experience Design</div><p class="skill-desc">Figma, user research methods, wireframing, prototyping, design systems and usability testing.</p></div>
+        <div class="skill-card"><div class="skill-name">Project Management</div><p class="skill-desc">Agile, Scrum, project planning, risk management and team leadership fundamentals.</p></div>
+      </div>
+      <div class="cta-box" style="min-height:44px;margin-top:32px">
+        <h3>Not listed here? Ask us.</h3>
+        <p>If your target skill or role is not in the list, book a free session. We will tell you whether we have an instructor who can help and what a realistic learning plan looks like.</p>
+        <a href="../pages/contact.html" class="btn-white">Discuss your skill goals</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<!-- ═══ STUDY ABROAD ═══ -->
+<div class="cat-panel" id="panel-abroad">
+  <div class="svc-bar">
+    <div class="sb-wrap">
+      <button class="sb-arrow hide" id="sbLeft-abroad" onclick="sbScroll('abroad',-1)">&#8249;</button>
+      <div class="sb-scroll" id="sbTabs-abroad">
+        <a href="#ab-how" class="sb-link sb-on" onclick="sbAct(this,'abroad')">Our approach</a>
+        <a href="#ab-countries" class="sb-link" onclick="sbAct(this,'abroad')">Countries</a>
+        <a href="#ab-scholarship" class="sb-link" onclick="sbAct(this,'abroad')">Scholarships</a>
+      </div>
+      <button class="sb-arrow" id="sbRight-abroad" onclick="sbScroll('abroad',1)">&#8250;</button>
+    </div>
+  </div>
+
+  <section id="ab-how" class="svc-section">
+    <div class="container">
+      <span class="section-label">Study Abroad from India</span>
+      <h2 class="section-title">University admissions with scholarship from day one</h2>
+      <p class="section-body" style="margin-bottom:28px">Every year, thousands of Indian students apply to universities abroad and pay full fees when a scholarship was available. We apply for scholarships alongside every admission application, not after the offer letter arrives when the university already has your commitment.</p>
+      <div class="grid-3">
+        <div class="card"><div class="card-title">University shortlisting</div><p class="card-body">Matched to your academic profile, career goals, and budget. Includes ambitious targets and reliable fallback choices. We tell you honestly which applications are realistic and which are stretches.</p></div>
+        <div class="card"><div class="card-title">Personal statement writing</div><p class="card-body">Multiple drafts across several sessions. We work until it clearly connects your past experience to your future goals and makes a convincing case for your admission.</p></div>
+        <div class="card"><div class="card-title">Scholarship applications</div><p class="card-body">Applied for alongside the admission. We identify every relevant scholarship for your nationality, subject, and academic background and apply for all of them simultaneously.</p></div>
+        <div class="card"><div class="card-title">Reference letter guidance</div><p class="card-body">We tell you who to approach, what to ask them to cover, and provide a template that supports your overall application narrative.</p></div>
+        <div class="card"><div class="card-title">Offer negotiation</div><p class="card-body">After you receive an offer, we contact the scholarship office and negotiate. Most students do not do this. Many universities have discretionary awards that go unclaimed.</p></div>
+        <div class="card"><div class="card-title">Visa guidance after offer</div><p class="card-body">Confirmation of Acceptance for Studies, student visa application, financial documentation. We guide the post-offer process so nothing delays your start.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ab-countries" class="svc-section">
+    <div class="container">
+      <span class="section-label">Study Abroad from India</span>
+      <h2 class="section-title">Countries we support applications to</h2>
+      <div class="grid-2" style="gap:16px;margin-top:28px">
+        <div class="card"><div class="card-title">United Kingdom</div><p class="card-body">Russell Group and post-92 universities. One-year master's programmes. Strong post-study work pathway via the Graduate Route. Indian students can stay 2 years after graduation. Scholarships available through Chevening, GREAT, and individual universities.</p></div>
+        <div class="card"><div class="card-title">Australia</div><p class="card-body">Under the India-Australia trade agreement, Indian students receive extended post-study work rights: 4 years after a bachelor's, 5 years after a master's, and 6 years after a doctoral programme. Group of Eight universities strong for engineering, healthcare, and business.</p></div>
+        <div class="card"><div class="card-title">Canada</div><p class="card-body">Best pathway to permanent residence for Indian students. Post-Graduation Work Permit covers full study duration. Canadian work experience and credentials contribute directly to Express Entry points for permanent residence applications.</p></div>
+        <div class="card"><div class="card-title">Ireland</div><p class="card-body">English-speaking European Union member. Home to European headquarters of Google, Meta, Apple, and LinkedIn. Graduate scheme gives 2 years after master's. Critical Skills Employment Permit leads to effectively permanent work rights after 2 years.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ab-scholarship" class="svc-section">
+    <div class="container">
+      <span class="section-label">Study Abroad from India</span>
+      <h2 class="section-title">Scholarships available to Indian students</h2>
+      <div class="grid-2" style="gap:16px;margin-top:28px">
+        <div class="card"><div class="card-title">Chevening Scholarship. United Kingdom</div><p class="card-body">United Kingdom Government scholarship covering full tuition, living allowance, and return flights. Primarily for master's degrees. Awarded for leadership potential. Applications open August each year. Extremely competitive, essay quality determines shortlisting.</p></div>
+        <div class="card"><div class="card-title">GREAT Scholarship. United Kingdom</div><p class="card-body">Minimum £10,000 toward tuition fees for one-year master's programmes. Joint initiative between the British Council and United Kingdom universities. India-specific programme. Apply directly to participating universities alongside your admission.</p></div>
+        <div class="card"><div class="card-title">University Merit Scholarships</div><p class="card-body">Most United Kingdom, Australian, and Canadian universities offer merit scholarships of 10 to 50 percent of tuition fees to strong applicants. These are rarely advertised prominently. We apply for every relevant one alongside your admission and negotiate after receiving an offer.</p></div>
+        <div class="card"><div class="card-title">Australia Awards</div><p class="card-body">Funded by the Australian Government for students from partner countries. Covers full tuition, living expenses, return airfares, and health cover. Highly competitive. Strong for students in development-related fields.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+<footer class="site-footer" id="site-footer" data-root="../"></footer>
+<script src="../nav.v3.js" defer></script>
+<script src="../footer.v3.js" defer></script>
+<script>
+var CATS = ['placement', 'salary', 'jobs', 'upskilling', 'abroad'];
+
+var HASH_TO_CAT = {
+  // Placement
+  'placement': 'placement', 'campus': 'placement',
+  'pl-overview': 'placement', 'pl-who': 'placement', 'pl-companies': 'placement', 'pl-mock': 'placement',
+
+  // Salary
+  'salary': 'salary',
+  'sal-how': 'salary', 'sal-results': 'salary', 'sal-negotiate': 'salary',
+
+  // Jobs
+  'jobs': 'jobs',
+  'jb-how': 'jobs', 'jb-who': 'jobs', 'jb-what': 'jobs',
+
+  // Upskilling
+  'upskilling': 'upskilling',
+  'up-how': 'upskilling', 'up-skills': 'upskilling',
+
+  // Abroad
+  'abroad': 'abroad',
+  'ab-how': 'abroad', 'ab-countries': 'abroad', 'ab-scholarship': 'abroad'
+};
+
+var CAT_DEFAULT_SECTION = {
+  'placement': 'pl-overview',
+  'salary': 'sal-how',
+  'jobs': 'jb-how',
+  'upskilling': 'up-how',
+  'abroad': 'ab-how'
+};
+
+var isSwitchingCategory = false;
+
+/**
+ * Switch primary category in India Wing
+ * @param {string} catId - Category ID ('placement', 'salary', 'jobs', 'upskilling', 'abroad')
+ * @param {HTMLElement} [btnEl] - Clicked category button
+ * @param {string} [targetSectionId] - Specific section ID to highlight/scroll to
+ * @param {boolean} [shouldScroll] - Whether to scroll (defaults to true)
+ */
+function showCat(catId, btnEl, targetSectionId, shouldScroll) {
+  if (!CATS.includes(catId)) catId = 'placement';
+  if (shouldScroll === undefined) shouldScroll = true;
+
+  isSwitchingCategory = true;
+
+  // 1. Hide all category panels and show target panel
+  document.querySelectorAll('.cat-panel').forEach(function(p) {
+    p.classList.remove('cp-on');
+  });
+  var targetPanel = document.getElementById('panel-' + catId);
+  if (targetPanel) {
+    targetPanel.classList.add('cp-on');
+  }
+
+  // 2. Update category button active state (.cb-on)
+  document.querySelectorAll('.cb-btn').forEach(function(b) {
+    b.classList.remove('cb-on');
+  });
+  if (!btnEl) {
+    btnEl = document.querySelector('.cb-btn[onclick*="' + catId + '"]');
+  }
+  if (btnEl) {
+    btnEl.classList.add('cb-on');
+  }
+
+  // 3. Reset secondary tabs across ALL panels to prevent stale active states
+  CATS.forEach(function(c) {
+    var tabs = document.querySelectorAll('#sbTabs-' + c + ' a');
+    tabs.forEach(function(a) { a.classList.remove('sb-on'); });
+  });
+
+  // 4. Determine valid target subpage section ID & activate its subpage tab
+  var secId = targetSectionId || CAT_DEFAULT_SECTION[catId];
+  var catTabs = document.querySelectorAll('#sbTabs-' + catId + ' a');
+  var activeTabEl = document.querySelector('#sbTabs-' + catId + ' a[href="#' + secId + '"]');
+
+  if (!activeTabEl && catTabs.length > 0) {
+    activeTabEl = catTabs[0];
+    secId = (activeTabEl.getAttribute('href') || '').replace('#', '');
+  }
+
+  if (activeTabEl) {
+    activeTabEl.classList.add('sb-on');
+  }
+
+  // Update scroll arrow indicators for primary and secondary tab bars
+  cbArrows();
+  sbArrows(catId);
+
+  // 5. Scroll cleanly to the target subpage section so content and sub-bar match 100%
+  if (shouldScroll) {
+    setTimeout(function() {
+      var targetEl = document.getElementById(secId);
+      if (targetEl) {
+        var y = targetEl.getBoundingClientRect().top + window.pageYOffset - 120;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      } else {
+        var catBarEl = document.getElementById('catBar');
+        if (catBarEl) {
+          var catY = catBarEl.getBoundingClientRect().top + window.pageYOffset - 64;
+          window.scrollTo({ top: Math.max(0, catY), behavior: 'smooth' });
+        }
+      }
+    }, 40);
+  }
+
+  // 6. Update URL state without reloading
+  var newUrl = window.location.pathname + '?c=' + catId + '#' + secId;
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState(null, '', newUrl);
+  }
+
+  // Release scroll-spy lock after scrolling finishes
+  setTimeout(function() {
+    isSwitchingCategory = false;
+  }, 700);
+}
+
+function cbScroll(dir) {
+  var el = document.getElementById('cbTabs');
+  if (el) el.scrollLeft += dir * 180;
+  cbArrows();
+}
+
+function cbArrows() {
+  var el = document.getElementById('cbTabs'), l = document.getElementById('cbLeft'), r = document.getElementById('cbRight');
+  if (!el || !l || !r) return;
+  l.classList.toggle('hide', el.scrollLeft < 8);
+  r.classList.toggle('hide', el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
+}
+
+function sbScroll(cat, dir) {
+  var el = document.getElementById('sbTabs-' + cat);
+  if (el) el.scrollLeft += dir * 160;
+  sbArrows(cat);
+}
+
+function sbAct(a, catId) {
+  var catTabs = document.querySelectorAll('#sbTabs-' + catId + ' a');
+  catTabs.forEach(function(l) { l.classList.remove('sb-on'); });
+  a.classList.add('sb-on');
+
+  var secId = (a.getAttribute('href') || '').replace('#', '');
+  var secEl = document.getElementById(secId);
+  if (secEl) {
+    var topPos = secEl.getBoundingClientRect().top + window.pageYOffset - 120;
+    window.scrollTo({ top: topPos, behavior: 'smooth' });
+  }
+
+  var newUrl = window.location.pathname + '?c=' + catId + '#' + secId;
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState(null, '', newUrl);
+  }
+}
+
+function sbArrows(cat) {
+  var el = document.getElementById('sbTabs-' + cat), l = document.getElementById('sbLeft-' + cat), r = document.getElementById('sbRight-' + cat);
+  if (!el || !l || !r) return;
+  l.classList.toggle('hide', el.scrollLeft < 8);
+  r.classList.toggle('hide', el.scrollLeft + el.clientWidth >= el.scrollWidth - 8);
+}
+
+// Scroll spy for active category panel subpages
+window.addEventListener('scroll', function() {
+  if (isSwitchingCategory) return;
+
+  var activePanel = document.querySelector('.cat-panel.cp-on');
+  if (!activePanel) return;
+
+  var catId = activePanel.id.replace('panel-', '');
+  var tabs = document.querySelectorAll('#sbTabs-' + catId + ' a');
+  if (!tabs || tabs.length === 0) return;
+
+  var offset = 140;
+  var activeTab = null;
+
+  tabs.forEach(function(a) {
+    var id = (a.getAttribute('href') || '').replace('#', '');
+    var el = document.getElementById(id);
+    if (el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top <= offset && rect.bottom > 100) {
+        activeTab = a;
+      }
+    }
+  });
+
+  if (activeTab) {
+    tabs.forEach(function(a) { a.classList.remove('sb-on'); });
+    activeTab.classList.add('sb-on');
+  }
+}, { passive: true });
+
+function syncStateFromUrl(shouldScroll) {
+  var params = new URLSearchParams(window.location.search);
+  var catParam = params.get('c') || params.get('cat');
+  var hash = window.location.hash.replace('#', '');
+
+  var cat = null;
+  var sectionId = null;
+
+  if (hash && HASH_TO_CAT[hash]) {
+    cat = HASH_TO_CAT[hash];
+    if (document.getElementById(hash)) {
+      sectionId = hash;
+    }
+  } else if (catParam && CATS.includes(catParam)) {
+    cat = catParam;
+  }
+
+  if (!cat) cat = 'placement';
+
+  showCat(cat, null, sectionId, shouldScroll);
+}
+
+window.addEventListener('load', function() {
+  cbArrows();
+  CATS.forEach(function(c) { sbArrows(c); });
+  var cbEl = document.getElementById('cbTabs');
+  if (cbEl) cbEl.addEventListener('scroll', cbArrows);
+
+  syncStateFromUrl(false);
+});
+
+window.addEventListener('popstate', function() {
+  syncStateFromUrl(true);
+});
+
+window.addEventListener('hashchange', function() {
+  syncStateFromUrl(true);
+});
+</script>
+</body>
+</html>
