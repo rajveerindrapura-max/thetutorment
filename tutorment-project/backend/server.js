@@ -636,16 +636,20 @@ app.use((err, req, res, next) => {
 /* ═══════════════════════════════════
    START
 ═══════════════════════════════════ */
-app.listen(PORT, () => {
-  console.log('\n ┌────────────────────────────────────────────┐');
-  console.log(' │  The Tutorment — Backend API v2             │');
-  console.log(' │  http://localhost:' + PORT + '/api                 │');
-  console.log(' └────────────────────────────────────────────┘\n');
-  console.log('  POST /api/leads');
-  console.log('  POST /api/auth/register | login | verify');
-  console.log('  POST /api/auth/forgot-password | reset-password');
-  console.log('  POST /api/reports   GET /api/reports/my');
-  console.log('  POST /api/bookings');
-  console.log('  GET  /api/user/dashboard');
-  console.log('  GET  /api/admin/stats | leads | users | bookings\n');
-});
+module.exports = app;
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log('\n ┌────────────────────────────────────────────┐');
+    console.log(' │  The Tutorment — Backend API v2             │');
+    console.log(' │  http://localhost:' + PORT + '/api                 │');
+    console.log(' └────────────────────────────────────────────┘\n');
+    console.log('  POST /api/leads');
+    console.log('  POST /api/auth/register | login | verify');
+    console.log('  POST /api/auth/forgot-password | reset-password');
+    console.log('  POST /api/reports   GET /api/reports/my');
+    console.log('  POST /api/bookings');
+    console.log('  GET  /api/user/dashboard');
+    console.log('  GET  /api/admin/stats | leads | users | bookings\n');
+  });
+}
