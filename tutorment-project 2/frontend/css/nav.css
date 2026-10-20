@@ -78,10 +78,11 @@
 }
 .nav-dd:hover .nav-dm { display: block; }
 .nav-dm a {
-  display: block; font-size: 13px; font-weight: 500;
-  color: #374151; padding: 9px 18px;
+  display: block; font-size: 14px; font-weight: 500; line-height: 1.5;
+  color: #1E293B; padding: 10px 18px; text-decoration: none;
+  transition: all .15s ease;
 }
-.nav-dm a:hover { background: #f0f6ff; color: #0A2E73; }
+.nav-dm a:hover { background: #F8FAFC; color: #0F3D91; }
 .nav-dm hr { border: none; border-top: 1px solid #f1f5f9; margin: 4px 0; }
 
 /* two-level dropdown */

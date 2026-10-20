@@ -63,18 +63,28 @@ app.post('/api/leads', (req, res) => {
 
 /* POST /api/auth/register */
 app.post('/api/auth/register', (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
-  if (!email || !password) return res.status(400).json({ success:false, error:'Email and password required' });
-  if (localUsers.find(u => u.email === email.toLowerCase())) {
-    return res.status(400).json({ success:false, error:'Email already registered' });
+  const { firstName, lastName, email, password, phone, service } = req.body;
+  if (!firstName || !firstName.trim()) {
+    return res.status(400).json({ success:false, error:'First name required' });
   }
-  const user = { id: Date.now().toString(), firstName, lastName, email: email.toLowerCase(),
-    password, role:'user', service:'', active:true };
+  const cleanEmail = (email || '').trim().toLowerCase();
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!cleanEmail || !emailRegex.test(cleanEmail) || cleanEmail.includes('..')) {
+    return res.status(400).json({ success:false, error:'Please enter a valid email address (e.g., name@gmail.com)' });
+  }
+  if (!password || password.length < 6) {
+    return res.status(400).json({ success:false, error:'Password must be at least 6 characters' });
+  }
+  if (localUsers.find(u => u.email === cleanEmail)) {
+    return res.status(400).json({ success:false, error:'An account with this email already exists. Please sign in.' });
+  }
+  const user = { id: Date.now().toString(), firstName: firstName.trim(), lastName: (lastName||'').trim(), email: cleanEmail,
+    password, role:'user', phone: phone || '', service: service || '', active:true };
   localUsers.push(user);
   const token = 'local-token-' + user.id;
   localSessions[token] = user;
-  console.log('  ✅ User registered:', email);
-  res.json({ success:true, token, user:{ firstName, lastName, email, service:'', role:'user' } });
+  console.log('  ✅ User registered:', cleanEmail);
+  res.json({ success:true, token, user:{ firstName: user.firstName, lastName: user.lastName, email: user.email, service: user.service, role:'user' } });
 });
 
 /* POST /api/auth/login */

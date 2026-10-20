@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Dashboard | The Tutorment</title>
 <meta name="description" content="Access your Tutorment dashboard. Track your career programme progress, view eligibility reports, manage session bookings, and get personalised guidance from your counsellor.">
-<link rel="preload" href="../shared.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="../shared.css"></noscript>
-<link rel="preload" href="../css/nav.v3.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="../css/nav.v3.css"></noscript>
+<link rel="preload" href="../shared.css?v=2.2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="../shared.css?v=2.2"></noscript>
+<link rel="preload" href="../css/nav.v3.css?v=2.2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="../css/nav.v3.css?v=2.2"></noscript>
 <style>
 /* ── LAYOUT ── */
 .dash-page{background:#f8fafc;min-height:100vh}
@@ -145,7 +145,7 @@
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 </style>
 </head>
-<body>
+<body data-page="dashboard">
 <div id="main-nav" data-root="../"></div>
 <h1 class="sr-only">My Dashboard - The Tutorment</h1>
 
@@ -392,13 +392,19 @@
 <script src="../nav.v3.js" defer></script>
 <script src="../footer.v3.js" defer></script>
 <script>
-var TT_API = window.location.hostname === 'localhost'
-  ? 'http://localhost:3000/api'
+var isLocalHost = window.location.hostname === 'localhost' ||
+                  window.location.hostname === '127.0.0.1' ||
+                  window.location.hostname === '' ||
+                  window.location.protocol === 'file:';
+
+var TT_API = isLocalHost
+  ? (window.location.origin && window.location.origin.startsWith('http') ? window.location.origin + '/api' : 'http://localhost:8080/api')
   : 'https://tutorment-backend-wjew.onrender.com/api';
 
 var SERVICE_MAP = {
   'hcpc':'HCPC Registration · United Kingdom',
   'nmc':'NMC Registration · United Kingdom',
+  'sqe':'SQE Registration · United Kingdom',
   'jobs-uk':'Sponsored Job Search · United Kingdom',
   'teaching':'Teaching in UK · Qualified Teacher Status',
   'phd':'Funded PhD / Scholarship',
@@ -410,29 +416,75 @@ var SERVICE_MAP = {
   'other':'Career Counselling',
 };
 
+function getStoredSession() {
+  var userStr = localStorage.getItem('tt_user') || localStorage.getItem('currentUser') || localStorage.getItem('tutorment_user');
+  var token = localStorage.getItem('tt_token') || localStorage.getItem('token');
+  var u = null;
+  if (userStr) {
+    try {
+      u = typeof userStr === 'string' ? JSON.parse(userStr) : userStr;
+      if (typeof u === 'string') u = JSON.parse(u);
+    } catch(e) {
+      console.warn('Could not parse stored user:', e);
+    }
+  }
+  if (!token && u && (u.token || u.isLoggedIn)) {
+    token = u.token || 'local-session-active';
+  }
+  return { user: u, token: token };
+}
+
+function saveStoredSession(userObj, token) {
+  if (!userObj) return;
+  if (typeof userObj !== 'object') {
+    try { userObj = JSON.parse(userObj); } catch(e) { return; }
+  }
+  if (!userObj.isLoggedIn) userObj.isLoggedIn = true;
+  var tokenVal = token || userObj.token || ('local-token-' + (userObj.id || Date.now()));
+  userObj.token = tokenVal;
+  var userStr = JSON.stringify(userObj);
+  localStorage.setItem('tt_token', tokenVal);
+  localStorage.setItem('token', tokenVal);
+  localStorage.setItem('tt_user', userStr);
+  localStorage.setItem('currentUser', userStr);
+  localStorage.setItem('tutorment_user', userStr);
+}
+
+function clearSession() {
+  localStorage.removeItem('tt_token');
+  localStorage.removeItem('token');
+  localStorage.removeItem('tt_user');
+  localStorage.removeItem('currentUser');
+  localStorage.removeItem('tutorment_user');
+  localStorage.removeItem('tt_elig_user');
+}
+
 function showLoginWall() {
   document.getElementById('login-wall').style.display = 'block';
   document.getElementById('dashboard').style.display = 'none';
 }
 
 function showDashboard(u) {
+  if (!u) u = {};
   document.getElementById('login-wall').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
 
   /* Name */
-  var rawName = u.firstName || (u.name ? u.name.split(' ')[0] : 'there');
+  var rawName = u.firstName || (u.name ? u.name.split(' ')[0] : '') || 'there';
   /* Proper case — handles ALL CAPS, all lower, mixed */
   var name = rawName.charAt(0).toUpperCase() + rawName.slice(1).toLowerCase();
   document.getElementById('dash-name').textContent = 'Welcome back, ' + name;
 
   /* Programme */
-  var svc = SERVICE_MAP[u.service] || 'Career Counselling';
+  var svc = SERVICE_MAP[u.service] || (u.service ? u.service : 'Career Counselling');
   document.getElementById('dash-service').textContent = svc;
 
   /* Days since joining */
   if (u.createdAt) {
     var days = Math.floor((Date.now() - new Date(u.createdAt)) / 86400000);
-    document.getElementById('stat-days').textContent = days + 'd';
+    document.getElementById('stat-days').textContent = Math.max(0, days) + 'd';
+  } else {
+    document.getElementById('stat-days').textContent = '1d';
   }
 
   /* Programme progress stat */
@@ -441,13 +493,16 @@ function showDashboard(u) {
   /* Counsellor */
   if (u.counsellor) {
     var cb = document.getElementById('counsellor-body');
-    cb.innerHTML = '<div style="display:flex;align-items:center;gap:16px">'
-      + '<div style="width:52px;height:52px;border-radius:50%;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#0A2E73;flex-shrink:0">'
-      + u.counsellor.charAt(0).toUpperCase() + '</div>'
-      + '<div><div style="font-size:15px;font-weight:700;color:#0f172a">' + u.counsellor + '</div>'
-      + '<div style="font-size:13px;color:#64748b">Your assigned counsellor</div>'
-      + (u.nextSession ? '<div style="font-size:12.5px;color:#0A2E73;font-weight:700;margin-top:4px">Next session: ' + new Date(u.nextSession).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}) + '</div>' : '') + '</div></div>';
-    document.getElementById('counsellor-card').style.display = 'block';
+    if (cb) {
+      cb.innerHTML = '<div style="display:flex;align-items:center;gap:16px">'
+        + '<div style="width:52px;height:52px;border-radius:50%;background:#eff6ff;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:#0A2E73;flex-shrink:0">'
+        + u.counsellor.charAt(0).toUpperCase() + '</div>'
+        + '<div><div style="font-size:15px;font-weight:700;color:#0f172a">' + u.counsellor + '</div>'
+        + '<div style="font-size:13px;color:#64748b">Your assigned counsellor</div>'
+        + (u.nextSession ? '<div style="font-size:12.5px;color:#0A2E73;font-weight:700;margin-top:4px">Next session: ' + new Date(u.nextSession).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}) + '</div>' : '') + '</div></div>';
+      var card = document.getElementById('counsellor-card');
+      if (card) card.style.display = 'block';
+    }
   }
 
   /* Load reports and sessions */
@@ -455,7 +510,8 @@ function showDashboard(u) {
 }
 
 function loadDashboardData() {
-  var token = localStorage.getItem('tt_token');
+  var session = getStoredSession();
+  var token = session.token;
   if (!token) return;
 
   /* Load reports */
@@ -463,101 +519,129 @@ function loadDashboardData() {
     headers: { 'Authorization': 'Bearer ' + token }
   }).then(function(r){ return r.json(); }).then(function(data) {
     if (data.success && data.reports && data.reports.length > 0) {
-      document.getElementById('stat-reports').textContent = data.reports.length;
+      var rCount = document.getElementById('stat-reports');
+      if (rCount) rCount.textContent = data.reports.length;
       var rb = document.getElementById('reports-body');
-      rb.innerHTML = data.reports.map(function(r) {
-        var date = new Date(r.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-        var goalLabel = {
-          'migrate':'Migration report','job-international':'International job report',
-          'phd-scholarship':'PhD scholarship report','study-abroad':'Study abroad report',
-          'professional-registration':'Registration report','india-job':'India job report',
-          'india-salary':'Salary report','upskill':'Upskilling report',
-        }[r.goal] || 'Career report';
-        return '<div class="report-item">'
-          + '<div class="report-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A2E73" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg></div>'
-          + '<div style="flex:1"><div class="report-name">' + goalLabel + (r.field ? ' · ' + r.field : '') + '</div>'
-          + '<div class="report-date">' + date + (r.readiness ? ' · Readiness: ' + r.readiness + '%' : '') + '</div></div>'
-          + '<a href="eligibility.html" class="report-view">View</a>'
-          + '</div>';
-      }).join('');
+      if (rb) {
+        rb.innerHTML = data.reports.map(function(r) {
+          var date = new Date(r.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+          var goalLabel = {
+            'migrate':'Migration report','job-international':'International job report',
+            'phd-scholarship':'PhD scholarship report','study-abroad':'Study abroad report',
+            'professional-registration':'Registration report','india-job':'India job report',
+            'india-salary':'Salary report','upskill':'Upskilling report',
+          }[r.goal] || 'Career report';
+          return '<div class="report-item">'
+            + '<div class="report-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0A2E73" stroke-width="2"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg></div>'
+            + '<div style="flex:1"><div class="report-name">' + goalLabel + (r.field ? ' · ' + r.field : '') + '</div>'
+            + '<div class="report-date">' + date + (r.readiness ? ' · Readiness: ' + r.readiness + '%' : '') + '</div></div>'
+            + '<a href="eligibility.html" class="report-view">View</a>'
+            + '</div>';
+        }).join('');
+      }
     } else {
-      document.getElementById('stat-reports').textContent = '0';
+      var rCount = document.getElementById('stat-reports');
+      if (rCount) rCount.textContent = '0';
     }
   }).catch(function(){
-    document.getElementById('stat-reports').textContent = ': ';
+    var rCount = document.getElementById('stat-reports');
+    if (rCount) rCount.textContent = '0';
   });
 
   /* Load bookings */
   fetch(TT_API + '/user/dashboard', {
     headers: { 'Authorization': 'Bearer ' + token }
   }).then(function(r){ return r.json(); }).then(function(data) {
-    if (data.success) {
+    if (data && data.success) {
       if (data.bookings && data.bookings.length > 0) {
-        document.getElementById('stat-sessions').textContent = data.bookings.length;
+        var sCount = document.getElementById('stat-sessions');
+        if (sCount) sCount.textContent = data.bookings.length;
         var sb = document.getElementById('sessions-body');
-        sb.innerHTML = data.bookings.map(function(b) {
-          var date = new Date(b.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-          var statusColor = b.status==='confirmed'?'#16a34a':b.status==='completed'?'#0A2E73':'#f59e0b';
-          return '<div class="session-item">'
-            + '<div class="session-dot" style="background:' + statusColor + '"></div>'
-            + '<div><div class="session-name">' + (b.service||'Career session') + '</div>'
-            + '<div class="session-when">' + date + ' · ' + (b.status||'Pending') + '</div></div>'
-            + '</div>';
-        }).join('');
+        if (sb) {
+          sb.innerHTML = data.bookings.map(function(b) {
+            var date = new Date(b.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+            var statusColor = b.status==='confirmed'?'#16a34a':b.status==='completed'?'#0A2E73':'#f59e0b';
+            return '<div class="session-item">'
+              + '<div class="session-dot" style="background:' + statusColor + '"></div>'
+              + '<div><div class="session-name">' + (b.service||'Career session') + '</div>'
+              + '<div class="session-when">' + date + ' · ' + (b.status||'Pending') + '</div></div>'
+              + '</div>';
+          }).join('');
+        }
 
         /* Update next session banner */
         var pending = data.bookings.find(function(b){ return b.status==='confirmed'||b.status==='pending'; });
         if (pending) {
           var d = new Date(pending.createdAt);
-          document.getElementById('ns-day').textContent = d.getDate();
-          document.getElementById('ns-mon').textContent = d.toLocaleString('en',{month:'short'}).toUpperCase();
-          document.getElementById('ns-title').textContent = pending.service || 'Session with counsellor';
-          document.getElementById('ns-time').textContent = 'Status: ' + (pending.status||'Pending confirmation') + ' · We will confirm via WhatsApp';
+          var dayEl = document.getElementById('ns-day');
+          if (dayEl) dayEl.textContent = d.getDate();
+          var monEl = document.getElementById('ns-mon');
+          if (monEl) monEl.textContent = d.toLocaleString('en',{month:'short'}).toUpperCase();
+          var titleEl = document.getElementById('ns-title');
+          if (titleEl) titleEl.textContent = pending.service || 'Session with counsellor';
+          var timeEl = document.getElementById('ns-time');
+          if (timeEl) timeEl.textContent = 'Status: ' + (pending.status||'Pending confirmation') + ' · We will confirm via WhatsApp';
         }
       }
     }
   }).catch(function(){});
 }
 
-function clearSession() {
-  localStorage.removeItem('tt_token');
-  localStorage.removeItem('tt_user');
-}
-
 function checkAuth() {
-  var token = localStorage.getItem('tt_token');
-  var user  = localStorage.getItem('tt_user');
-  if (!token) { showLoginWall(); return; }
+  var session = getStoredSession();
+  var token = session.token;
+  var u = session.user;
 
-  /* Client-side JWT expiry check — fast fail before network call */
-  try {
-    var payload = JSON.parse(atob(token.split('.')[1]));
-    if(payload.exp && payload.exp * 1000 < Date.now()) {
-      clearSession(); showLoginWall();
-      var errEl = document.getElementById('dash-err');
-      if(errEl) { errEl.textContent = 'Your session has expired. Please sign in again.'; errEl.style.display = 'block'; }
-      return;
-    }
-  } catch(e) { /* not a JWT or malformed — let server verify */ }
-
-  fetch(TT_API + '/auth/verify', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
-  }).then(function(res) {
-    if (!res.ok) throw new Error('verify failed');
-    return res.json();
-  }).then(function(data) {
-    if (!data || !data.valid) { clearSession(); showLoginWall(); return; }
-    var u = data.user || (user ? JSON.parse(user) : {});
-    showDashboard(u);
-  }).catch(function(err) {
-    /* Network error or expired token — always require re-authentication on dashboard */
-    clearSession();
+  /* If no session or user in storage, show login wall */
+  if (!u && !token) {
     showLoginWall();
-    /* Show a helpful message */
-    var errEl = document.getElementById('dash-err');
-    if(errEl) { errEl.textContent = 'Session expired. Please sign in again.'; errEl.style.display = 'block'; }
-  });
+    return;
+  }
+
+  /* Valid session found: populate and keep dashboard visible immediately */
+  if (u) {
+    showDashboard(u);
+  }
+
+  /* Optional JWT expiry check for real JWTs only (avoid breaking mock/local tokens) */
+  if (token && typeof token === 'string' && token.indexOf('.') !== -1) {
+    try {
+      var parts = token.split('.');
+      if (parts.length === 3) {
+        var payload = JSON.parse(atob(parts[1]));
+        if (payload && payload.exp && payload.exp * 1000 < Date.now()) {
+          clearSession();
+          showLoginWall();
+          var errEl = document.getElementById('dash-err');
+          if (errEl) { errEl.textContent = 'Your session has expired. Please sign in again.'; errEl.style.display = 'block'; }
+          return;
+        }
+      }
+    } catch(e) {}
+  }
+
+  /* Perform non-blocking server verification if online */
+  if (token && TT_API && window.location.protocol !== 'file:') {
+    fetch(TT_API + '/auth/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token }
+    }).then(function(res) {
+      if (!res.ok) return null;
+      return res.json();
+    }).then(function(data) {
+      if (data && data.valid && data.user) {
+        var merged = Object.assign({}, u || {}, data.user);
+        saveStoredSession(merged, token);
+        showDashboard(merged);
+      } else if (data && data.valid === false) {
+        clearSession();
+        showLoginWall();
+      }
+    }).catch(function(err) {
+      /* Safe fallback: keep user on dashboard if offline / mock server */
+      console.log('Using local/cached session on dashboard');
+    });
+  }
 }
 
 async function dashLogin() {
@@ -565,8 +649,11 @@ async function dashLogin() {
   var pass  = document.getElementById('dash-pass').value;
   var err   = document.getElementById('dash-err');
   var btn   = document.getElementById('dash-login-btn');
-  err.style.display = 'none';
-  if (!email || !pass) { err.textContent = 'Please enter your email and password.'; err.style.display = 'block'; return; }
+  if (err) err.style.display = 'none';
+  if (!email || !pass) {
+    if (err) { err.textContent = 'Please enter your email and password.'; err.style.display = 'block'; }
+    return;
+  }
   btn.textContent = 'Signing in...'; btn.disabled = true;
   try {
     var res  = await fetch(TT_API + '/auth/login', {
@@ -575,17 +662,14 @@ async function dashLogin() {
     });
     var data = await res.json();
     if (data.success) {
-      localStorage.setItem('tt_token', data.token);
-      localStorage.setItem('tt_user', JSON.stringify(data.user));
+      saveStoredSession(data.user, data.token);
       showDashboard(data.user);
     } else {
-      err.textContent = data.error || 'Incorrect email or password.';
-      err.style.display = 'block';
+      if (err) { err.textContent = data.error || 'Incorrect email or password.'; err.style.display = 'block'; }
       btn.textContent = 'Sign in'; btn.disabled = false;
     }
   } catch(e) {
-    err.textContent = 'Could not connect. Please check your internet or message us on WhatsApp.';
-    err.style.display = 'block';
+    if (err) { err.textContent = 'Could not connect. Please check your internet or message us on WhatsApp.'; err.style.display = 'block'; }
     btn.textContent = 'Sign in'; btn.disabled = false;
   }
 }

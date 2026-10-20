@@ -10,11 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <!-- Brand column -->
       <div>
-        <div style="margin-bottom:20px">
-          <img src="${root}TT_Logo_White_Bg.png" alt="The Tutorment"
-            style="height:28px;width:auto;display:block;border-radius:4px">
-        </div>
-        <p style="font-size:13.5px;line-height:1.75;color:rgba(255,255,255,.5);margin-bottom:24px;font-family:'Inter',sans-serif">
+        <a href="${root || '/'}" style="display:inline-block;margin-bottom:16px;text-decoration:none">
+          <img src="${root}TT_Logo_White_Bg.png" alt="The Tutorment" style="height:36px;width:auto;display:block;border-radius:6px;object-fit:contain">
+        </a>
+        <p style="font-size:13.5px;line-height:1.75;color:#94A3B8;margin-bottom:24px;font-family:'Inter',sans-serif">
           Career counselling, professional registration, upskilling and admissions.
           India and internationally.
         </p>

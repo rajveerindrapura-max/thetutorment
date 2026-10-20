@@ -4,6 +4,7 @@
   "description": "Local server for Tutorment",
   "main": "tutorment-local-server.js",
   "scripts": {
+    "build": "echo 'Build complete'",
     "start": "node tutorment-local-server.js"
   },
   "dependencies": {

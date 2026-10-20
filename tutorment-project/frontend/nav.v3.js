@@ -4,11 +4,83 @@ var isLocalHost = window.location.hostname === 'localhost' ||
                   window.location.protocol === 'file:';
 
 var TT_API = isLocalHost
-  ? 'http://localhost:5000/api'
+  ? (window.location.origin && window.location.origin.startsWith('http') ? window.location.origin + '/api' : 'http://localhost:8080/api')
   : 'https://tutorment-backend-wjew.onrender.com/api';
 
 /* Pre-warm Render backend on page load */
 setTimeout(function(){ fetch(TT_API + '/').catch(function(){}); }, 2000);
+
+/* Strict Email Validation Regex & Helpers */
+function ttIsValidEmail(email) {
+  if (!email || typeof email !== 'string') return false;
+  email = email.trim();
+  var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(email)) return false;
+  if (email.indexOf('..') !== -1) return false;
+  var parts = email.split('@');
+  if (parts.length !== 2) return false;
+  var user = parts[0];
+  var domain = parts[1];
+  if (!user || user.startsWith('.') || user.endsWith('.')) return false;
+  if (domain.startsWith('.') || domain.endsWith('.') || domain.startsWith('-') || domain.endsWith('-')) return false;
+  var domainParts = domain.split('.');
+  if (domainParts.some(function(p){ return p.length === 0 || p.startsWith('-') || p.endsWith('-'); })) return false;
+  return true;
+}
+
+var ttEmailTouched = false;
+
+function ttEmailFocus() {
+  var input = document.getElementById('ttSignupEmail');
+  if (!input) return;
+  var val = (input.value || '').trim();
+  if (ttEmailTouched && val && !ttIsValidEmail(val)) {
+    input.style.borderColor = '#EF4444';
+  } else {
+    input.style.borderColor = '#0F3D91';
+  }
+}
+
+function ttValidateSignupEmail(isBlur) {
+  var input = document.getElementById('ttSignupEmail');
+  var errEl = document.getElementById('ttSignupEmailErr');
+  if (!input) return false;
+
+  if (isBlur) ttEmailTouched = true;
+
+  var val = (input.value || '').trim();
+  input.value = val;
+
+  if (!ttEmailTouched && !isBlur) return true;
+
+  if (!val) {
+    if (isBlur) {
+      input.style.borderColor = '#EF4444';
+      if (errEl) {
+        errEl.textContent = 'Please enter a valid email address (e.g., name@gmail.com)';
+        errEl.style.display = 'block';
+      }
+      return false;
+    } else {
+      input.style.borderColor = '#E2E8F0';
+      if (errEl) errEl.style.display = 'none';
+      return true;
+    }
+  }
+
+  if (!ttIsValidEmail(val)) {
+    input.style.borderColor = '#EF4444';
+    if (errEl) {
+      errEl.textContent = 'Please enter a valid email address (e.g., name@gmail.com)';
+      errEl.style.display = 'block';
+    }
+    return false;
+  } else {
+    input.style.borderColor = '#E2E8F0';
+    if (errEl) errEl.style.display = 'none';
+    return true;
+  }
+}
 
 function initTTNav() {
   var nav = document.getElementById('main-nav');
@@ -24,10 +96,10 @@ function initTTNav() {
         /* ABOUT */
         '<div class="nav-dd">' +
           '<button class="nav-dt" aria-haspopup="true" onclick="window.location.href=\'' + r + 'pages/about.html\'">About</button>' +
-          '<div class="nav-dm" style="min-width:220px;padding:8px 0">' +
-            '<a href="' + r + 'pages/about.html" style="font-weight:700;color:#0056d2;font-size:14px;padding:9px 18px">About The Tutorment</a>' +
-            '<a href="' + r + 'pages/results.html" style="padding:9px 18px;font-size:13.5px;font-weight:600">Student Outcomes & Reviews</a>' +
-            '<a href="' + r + 'pages/contact.html" style="padding:9px 18px;font-size:13.5px;font-weight:600;color:#0056d2">Book Free Consultation</a>' +
+          '<div class="nav-dm" style="min-width:230px;padding:8px 0">' +
+            '<a href="' + r + 'pages/about.html" style="display:block;font-size:14px;font-weight:500;color:#1E293B;padding:10px 18px;line-height:1.5;text-decoration:none;transition:all .15s ease" onmouseover="this.style.color=\'#0F3D91\';this.style.background=\'#F8FAFC\'" onmouseout="this.style.color=\'#1E293B\';this.style.background=\'transparent\'">About The Tutorment</a>' +
+            '<a href="' + r + 'pages/results.html" style="display:block;font-size:14px;font-weight:500;color:#1E293B;padding:10px 18px;line-height:1.5;text-decoration:none;transition:all .15s ease" onmouseover="this.style.color=\'#0F3D91\';this.style.background=\'#F8FAFC\'" onmouseout="this.style.color=\'#1E293B\';this.style.background=\'transparent\'">Student Outcomes & Reviews</a>' +
+            '<a href="' + r + 'pages/contact.html" style="display:block;font-size:14px;font-weight:500;color:#1E293B;padding:10px 18px;line-height:1.5;text-decoration:none;transition:all .15s ease" onmouseover="this.style.color=\'#0F3D91\';this.style.background=\'#F8FAFC\'" onmouseout="this.style.color=\'#1E293B\';this.style.background=\'transparent\'">Book Free Consultation</a>' +
           '</div>' +
         '</div>' +
 
@@ -246,7 +318,11 @@ function initTTNav() {
             '<div><label style="display:block;font-size:13px;font-weight:600;color:#0F172A;margin-bottom:6px">First name</label><input id="ttSignupFirst" type="text" placeholder="First name" autocomplete="given-name" style="width:100%;font-size:14px;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:10px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color .15s" onfocus="this.style.borderColor=\'#0F3D91\'" onblur="this.style.borderColor=\'#E2E8F0\'"></div>' +
             '<div><label style="display:block;font-size:13px;font-weight:600;color:#0F172A;margin-bottom:6px">Last name</label><input id="ttSignupLast" type="text" placeholder="Last name" autocomplete="family-name" style="width:100%;font-size:14px;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:10px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color .15s" onfocus="this.style.borderColor=\'#0F3D91\'" onblur="this.style.borderColor=\'#E2E8F0\'"></div>' +
           '</div>' +
-          '<div style="margin-bottom:16px"><label style="display:block;font-size:13px;font-weight:600;color:#0F172A;margin-bottom:6px">Email address</label><input id="ttSignupEmail" type="email" placeholder="you@example.com" autocomplete="off" style="width:100%;font-size:14px;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:10px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color .15s" onfocus="this.style.borderColor=\'#0F3D91\'" onblur="this.style.borderColor=\'#E2E8F0\'"></div>' +
+          '<div style="margin-bottom:16px">' +
+            '<label style="display:block;font-size:13px;font-weight:600;color:#0F172A;margin-bottom:6px">Email address</label>' +
+            '<input id="ttSignupEmail" type="email" required autocomplete="email" placeholder="you@example.com" onblur="ttValidateSignupEmail(true)" oninput="ttValidateSignupEmail(false)" onfocus="ttEmailFocus()" style="width:100%;font-size:14px;padding:11px 14px;border:1.5px solid #E2E8F0;border-radius:10px;outline:none;box-sizing:border-box;font-family:inherit;transition:border-color .15s">' +
+            '<p id="ttSignupEmailErr" style="font-size:12px;color:#EF4444;margin-top:5px;margin-bottom:0;display:none;font-family:inherit">Please enter a valid email address (e.g., name@gmail.com)</p>' +
+          '</div>' +
           /* Phone or WhatsApp with auto-suggest country code */
           '<div style="margin-bottom:16px">' +
             '<label style="display:block;font-size:13px;font-weight:600;color:#0F172A;margin-bottom:6px">Phone or WhatsApp</label>' +
@@ -372,24 +448,67 @@ function initTTNav() {
     '</div>';
   document.body.appendChild(m);
 
+  /* ── SESSION STORAGE HELPERS ── */
+  function ttGetStoredSession() {
+    var userStr = localStorage.getItem('tt_user') || localStorage.getItem('currentUser') || localStorage.getItem('tutorment_user');
+    var token = localStorage.getItem('tt_token') || localStorage.getItem('token');
+    var u = null;
+    if (userStr) {
+      try {
+        u = typeof userStr === 'string' ? JSON.parse(userStr) : userStr;
+        if (typeof u === 'string') u = JSON.parse(u);
+      } catch(e) {}
+    }
+    if (!token && u && (u.token || u.isLoggedIn)) {
+      token = u.token || 'local-session-active';
+    }
+    return { user: u, token: token };
+  }
+
+  function ttSaveStoredSession(userObj, token) {
+    if (!userObj) return;
+    if (typeof userObj !== 'object') {
+      try { userObj = JSON.parse(userObj); } catch(e) { return; }
+    }
+    if (!userObj.isLoggedIn) userObj.isLoggedIn = true;
+    var tokenVal = token || userObj.token || ('local-token-' + (userObj.id || Date.now()));
+    userObj.token = tokenVal;
+    var userStr = JSON.stringify(userObj);
+    localStorage.setItem('tt_token', tokenVal);
+    localStorage.setItem('token', tokenVal);
+    localStorage.setItem('tt_user', userStr);
+    localStorage.setItem('currentUser', userStr);
+    localStorage.setItem('tutorment_user', userStr);
+  }
+
+  function ttClearStoredSession() {
+    localStorage.removeItem('tt_token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('tt_user');
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('tutorment_user');
+    localStorage.removeItem('tt_elig_user');
+  }
+
   /* ── UPDATE NAV FOR LOGIN STATE ── runs 150ms after DOM ready */
   setTimeout(function(){
-    var token   = localStorage.getItem('tt_token');
-    var userStr = localStorage.getItem('tt_user');
+    var session = ttGetStoredSession();
+    var token   = session.token;
+    var u       = session.user;
     var siBtn   = document.getElementById('tt-btn-si');
     var userMenu= document.getElementById('tt-user-menu');
     var navSw   = document.getElementById('tt-nav-sw');
 
-    if(token && userStr){
+    if(u || token){
       try {
-        var u = JSON.parse(userStr);
+        if (!u) u = { firstName: 'Account', isLoggedIn: true };
         /* Proper case name */
-        var fname = (u.firstName||'');
-        var lname = (u.lastName||'');
-        fname = fname ? fname.charAt(0).toUpperCase()+fname.slice(1).toLowerCase() : '';
-        lname = lname ? lname.charAt(0).toUpperCase()+lname.slice(1).toLowerCase() : '';
-        var fullName = (fname+(lname?' '+lname:'')).trim()||'Account';
-        var initials = (fname.charAt(0)+(lname.charAt(0)||fname.charAt(1)||'')).toUpperCase()||'U';
+        var rawFirst = u.firstName || (u.name ? u.name.split(' ')[0] : '');
+        var rawLast  = u.lastName || (u.name ? u.name.split(' ').slice(1).join(' ') : '');
+        var fname = rawFirst ? rawFirst.charAt(0).toUpperCase()+rawFirst.slice(1).toLowerCase() : '';
+        var lname = rawLast ? rawLast.charAt(0).toUpperCase()+rawLast.slice(1).toLowerCase() : '';
+        var fullName = (fname+(lname?' '+lname:'')).trim()||u.name||'Account';
+        var initials = ((fname ? fname.charAt(0) : '') + (lname ? lname.charAt(0) : (fname.length > 1 ? fname.charAt(1) : ''))).toUpperCase()||'U';
 
         /* Hide sign-in, show avatar */
         if(siBtn) siBtn.style.display = 'none';
@@ -457,15 +576,19 @@ function ttUserMenuToggle() {
 
 function ttNavSignout() {
   localStorage.removeItem('tt_token');
+  localStorage.removeItem('token');
   localStorage.removeItem('tt_user');
+  localStorage.removeItem('currentUser');
+  localStorage.removeItem('tutorment_user');
   localStorage.removeItem('tt_elig_user');
   window.location.reload();
 }
 
 /* ── MODAL CONTROLS ── */
 function ttOpenOrDash() {
-  var token = localStorage.getItem('tt_token');
-  if (token) {
+  var userStr = localStorage.getItem('tt_user') || localStorage.getItem('currentUser') || localStorage.getItem('tutorment_user');
+  var token = localStorage.getItem('tt_token') || localStorage.getItem('token');
+  if (token || userStr) {
     var nav = document.getElementById('main-nav');
     var r = nav ? (nav.dataset.root || '') : '';
     window.location.href = r + 'pages/dashboard.html';
@@ -497,6 +620,14 @@ function ttTab(t) {
   if(ts){ ts.style.color=t==='signup'?'#0056d2':'#6b7280'; ts.style.borderBottom=t==='signup'?'3px solid #0056d2':'3px solid transparent'; }
   var ti = document.getElementById('ttModalTitle');
   if(ti) ti.textContent = t==='login'?'Sign in to The Tutorment':t==='signup'?'Join The Tutorment':'';
+
+  var signupErr = document.getElementById('ttSignupErr');
+  if (signupErr) { signupErr.style.display = 'none'; signupErr.textContent = ''; }
+  var emailErr = document.getElementById('ttSignupEmailErr');
+  if (emailErr) { emailErr.style.display = 'none'; emailErr.textContent = ''; }
+  var emailInput = document.getElementById('ttSignupEmail');
+  if (emailInput && !emailInput.value) { emailInput.style.borderColor = '#E2E8F0'; }
+  ttEmailTouched = false;
 }
 
 /* ── LOGIN ── */
@@ -513,9 +644,17 @@ async function ttLogin() {
     var res  = await fetch(TT_API+'/auth/login', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({email:email.trim(), password:pass})});
     var data = await res.json();
     if(data.success){
-      localStorage.setItem('tt_token', data.token);
-      localStorage.setItem('tt_user', JSON.stringify(data.user));
-      var fname = data.user && data.user.firstName ? data.user.firstName : 'there';
+      var userObj = data.user || {};
+      if (!userObj.isLoggedIn) userObj.isLoggedIn = true;
+      var tokenVal = data.token || ('local-token-' + (userObj.id || Date.now()));
+      userObj.token = tokenVal;
+      var userStr = JSON.stringify(userObj);
+      localStorage.setItem('tt_token', tokenVal);
+      localStorage.setItem('token', tokenVal);
+      localStorage.setItem('tt_user', userStr);
+      localStorage.setItem('currentUser', userStr);
+      localStorage.setItem('tutorment_user', userStr);
+      var fname = userObj.firstName ? userObj.firstName : (userObj.name ? userObj.name.split(' ')[0] : 'there');
       fname = fname.charAt(0).toUpperCase()+fname.slice(1).toLowerCase();
       var t = document.getElementById('ttSuccessTitle'); if(t) t.textContent = 'Welcome back, '+fname;
       ttTab('success');
@@ -584,9 +723,11 @@ function ttAutoSuggestCountry(input) {
 
 /* ── SIGNUP ── */
 async function ttSignup() {
-  var first = ((document.getElementById('ttSignupFirst')||{}).value||'').trim();
+  var firstInput = document.getElementById('ttSignupFirst');
+  var first = ((firstInput||{}).value||'').trim();
   var last  = ((document.getElementById('ttSignupLast')||{}).value||'').trim();
-  var email = ((document.getElementById('ttSignupEmail')||{}).value||'').trim();
+  var emailInput = document.getElementById('ttSignupEmail');
+  var email = ((emailInput||{}).value||'').trim();
   var code  = ((document.getElementById('ttSignupCountryCode')||{}).value||'').trim();
   var phoneRaw = ((document.getElementById('ttSignupPhone')||{}).value||'').trim();
   var phone = phoneRaw;
@@ -601,18 +742,45 @@ async function ttSignup() {
     }
   }
   var svc   = ((document.getElementById('ttSignupService')||{}).value||'');
-  var pass  = ((document.getElementById('ttSignupPass')||{}).value||'').trim();
+  var passInput = document.getElementById('ttSignupPass');
+  var pass  = ((passInput||{}).value||'').trim();
   var err   = document.getElementById('ttSignupErr');
   var btn   = document.getElementById('ttSignupBtn');
   if(err){ err.style.display='none'; err.textContent=''; }
 
   function showErr(msg){ if(err){ err.textContent=msg; err.style.display='block'; } }
 
-  if(!first)         { showErr('Please enter your first name.'); return; }
-  if(!email)         { showErr('Please enter your email address.'); return; }
-  if(!email.includes('@')){ showErr('Please enter a valid email address.'); return; }
-  if(!pass)          { showErr('Please set a password for your account.'); return; }
-  if(pass.length < 6){ showErr('Password must be at least 6 characters.'); return; }
+  if(!first) {
+    showErr('Please enter your first name.');
+    if(firstInput) firstInput.focus();
+    return;
+  }
+
+  // Strict Email Validation & Interception
+  ttEmailTouched = true;
+  if(!email) {
+    ttValidateSignupEmail(true);
+    showErr('Please enter your email address.');
+    if(emailInput) emailInput.focus();
+    return;
+  }
+  if(!ttIsValidEmail(email)) {
+    ttValidateSignupEmail(true);
+    showErr('Please enter a valid email address (e.g., name@gmail.com)');
+    if(emailInput) emailInput.focus();
+    return;
+  }
+
+  if(!pass) {
+    showErr('Please set a password for your account.');
+    if(passInput) passInput.focus();
+    return;
+  }
+  if(pass.length < 6) {
+    showErr('Password must be at least 6 characters.');
+    if(passInput) passInput.focus();
+    return;
+  }
 
   if(btn){ btn.textContent='Creating account...'; btn.disabled=true; }
   var slowTimer = setTimeout(function(){ if(btn&&btn.disabled) btn.textContent='Almost there — server starting...'; }, 5000);
@@ -625,8 +793,16 @@ async function ttSignup() {
     var data = await res.json();
     clearTimeout(slowTimer);
     if(data.success){
-      localStorage.setItem('tt_token', data.token);
-      localStorage.setItem('tt_user', JSON.stringify(data.user));
+      var userObj = data.user || { firstName: first, lastName: last, email: email, service: svc };
+      if (!userObj.isLoggedIn) userObj.isLoggedIn = true;
+      var tokenVal = data.token || ('local-token-' + (userObj.id || Date.now()));
+      userObj.token = tokenVal;
+      var userStr = JSON.stringify(userObj);
+      localStorage.setItem('tt_token', tokenVal);
+      localStorage.setItem('token', tokenVal);
+      localStorage.setItem('tt_user', userStr);
+      localStorage.setItem('currentUser', userStr);
+      localStorage.setItem('tutorment_user', userStr);
       var fname = first.charAt(0).toUpperCase()+first.slice(1).toLowerCase();
       var t = document.getElementById('ttSuccessTitle'); if(t) t.textContent='Welcome, '+fname+'. Your account is ready.';
       ttTab('success');

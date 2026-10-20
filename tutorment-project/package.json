@@ -4,6 +4,7 @@
   "description": "The Tutorment — Standalone Web Application & Express Backend",
   "private": true,
   "scripts": {
+    "build": "echo 'Build complete'",
     "start": "node backend/server.js",
     "dev:backend": "node backend/server.js",
     "dev:frontend": "npx serve frontend -p 3000",
